@@ -53,7 +53,7 @@ flutter:
     # The following line ensures that the Material Icons font is
     # included with your application, so that you can use the icons in
     # the material Icons class.
-    - lib/assets/logo.svg
+    - assets/Icons/logo.svg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -93,8 +93,8 @@ flutter:
   fonts:
     - family: Cairo
       fonts:
-        - asset: lib/assets/fonts/Cairo/static/Cairo-Regular.ttf
-        - asset: lib/assets/fonts/Cairo/static/Cairo-Bold.ttf
+        - asset: assets/fonts/Cairo/static/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo/static/Cairo-Bold.ttf
           weight: 700
-        - asset: lib/assets/fonts/Cairo/static/Cairo-Light.ttf
+        - asset: assets/fonts/Cairo/static/Cairo-Light.ttf
           weight: 300
