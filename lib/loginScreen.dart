@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: isTextFieldFocused
                                         ? Color.fromARGB(255, 219, 251, 250)
                                         : Colors.white,
-                                    borderRadius: BorderRadius.circular(9),
+                                    borderRadius: BorderRadius.circular(11),
                                   ),
                                 ),
                               ),
