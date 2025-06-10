@@ -202,47 +202,54 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.fromLTRB(0, 15, 25, 0),
                           child: SizedBox(
                             width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: isPhoneComplete ? () {} : () {},
-
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: isPhoneComplete
-                                    ? Color.fromARGB(255, 18, 146, 149)
-                                    : const Color.fromARGB(255, 242, 244, 247),
-                                elevation: 0,
-
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 12,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  side: BorderSide(
-                                    color: isPhoneComplete
-                                        ? Color.fromARGB(255, 18, 146, 149)
-                                        : const Color.fromARGB(
-                                            255,
-                                            234,
-                                            236,
-                                            240,
-                                          ),
-                                    width: 2,
-                                  ),
-                                ),
-                              ),
-                              child: Text(
-                                'Log In',
-                                style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontSize: 18,
-                                  color: isPhoneComplete
-                                      ? Colors.white
+                            child: SizedBox(
+                              height: 52,
+                              child: ElevatedButton(
+                                onPressed: isPhoneComplete ? () {} : () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: isPhoneComplete
+                                      ? Color.fromARGB(255, 18, 146, 149)
                                       : const Color.fromARGB(
                                           255,
-                                          152,
-                                          162,
-                                          179,
+                                          242,
+                                          244,
+                                          247,
                                         ),
+                                  elevation: 0,
+
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 0,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    side: BorderSide(
+                                      color: isPhoneComplete
+                                          ? Color.fromARGB(255, 18, 146, 149)
+                                          : const Color.fromARGB(
+                                              255,
+                                              234,
+                                              236,
+                                              240,
+                                            ),
+                                      width: 2,
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Log In',
+                                  style: TextStyle(
+                                    fontFamily: 'Cairo',
+                                    fontSize: 18,
+                                    color: isPhoneComplete
+                                        ? Colors.white
+                                        : const Color.fromARGB(
+                                            255,
+                                            152,
+                                            162,
+                                            179,
+                                          ),
+                                  ),
                                 ),
                               ),
                             ),
