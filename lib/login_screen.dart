@@ -160,14 +160,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   //Asfur Logo
-                  Positioned(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 75, 0, 60),
-                      child: SvgPicture.asset(
-                        'assets/Icons/logo.svg',
-                        width: 130,
-                        height: 130,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 75, 0, 60),
+                    child: SvgPicture.asset(
+                      'assets/Icons/logo.svg',
+                      width: 130,
+                      height: 130,
                     ),
                   ),
 
@@ -214,7 +212,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     top: -4,
                                     left: -4,
                                     right: -4,
-                                    //width: 351,
                                     height: 60,
                                     child: Container(
                                       decoration: BoxDecoration(
