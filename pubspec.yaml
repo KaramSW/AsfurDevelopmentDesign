@@ -58,7 +58,14 @@ flutter:
     - assets/Icons/appleLogo.svg
     - assets/Icons/googleLogo.svg
     - assets/Icons/resendSymbol.svg
-
+    - assets/Icons/navBar/homePageIcon.svg
+    - assets/Icons/navBar/homePageSelectedIcon.svg
+    - assets/Icons/navBar/profileIcon.svg
+    - assets/Icons/navBar/profileSelectedIcon.svg
+    - assets/Icons/navBar/navigatePageIcon.svg
+    - assets/Icons/navBar/navigatePageSelectedIcon.svg
+    - assets/Icons/navBar/calendarPageIcon.svg
+    - assets/Icons/navBar/calendarPageSelectedIcon.svg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

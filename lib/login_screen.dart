@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -666,10 +667,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: SizedBox(
                                   height: 52,
                                   child: ElevatedButton(
-                                    onPressed: /*isPhoneComplete
-                                      ? _handleLogin
-                                      : */
-                                        () {},
+                                    onPressed: isOtpComplete
+                                        ? () {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HomeScreen(),
+                                              ),
+                                            );
+                                          }
+                                        : () {},
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: isOtpComplete
                                           ? Color.fromARGB(255, 18, 146, 149)
