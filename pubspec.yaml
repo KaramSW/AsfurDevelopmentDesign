@@ -54,7 +54,8 @@ flutter:
     # The following line ensures that the Material Icons font is
     # included with your application, so that you can use the icons in
     # the material Icons class.
-    - assets/Icons/logo.svg
+    - assets/Icons/logo.svg    
+    - assets/Icons/asfurLogo.svg
     - assets/Icons/appleLogo.svg
     - assets/Icons/googleLogo.svg
     - assets/Icons/resendSymbol.svg
@@ -66,6 +67,7 @@ flutter:
     - assets/Icons/navBar/explorePageSelectedIcon.svg
     - assets/Icons/navBar/bookingsPageIcon.svg
     - assets/Icons/navBar/bookingsPageSelectedIcon.svg
+    - assets/Icons/hp_icons/notifi.svg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -109,6 +111,24 @@ flutter:
           weight: 700
         - asset: assets/fonts/Cairo/static/Cairo-Light.ttf
           weight: 300
+    - family: Ping
+      fonts:
+      - asset: assets/fonts/Ping/Ping_Thin.ttf
+        weight: 100
+      - asset: assets/fonts/Ping/Ping_ExtraLight.ttf
+        weight: 200
+      - asset: assets/fonts/Ping/Ping_Light.ttf
+        weight: 300
+      - asset: assets/fonts/Ping/Ping_Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Ping/Ping_Medium.ttf
+        weight: 500
+      - asset: assets/fonts/Ping/Ping_Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Ping/Ping_Heavy.ttf
+        weight: 800
+      - asset: assets/fonts/Ping/Ping_Black.ttf
+        weight: 900
 flutter_icons:
     android: true
     ios: true
