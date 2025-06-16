@@ -63,33 +63,31 @@ class _CustomNavBarState extends State<CustomNavBarUi> {
             BottomNavigationBarItem(
               icon: widget.selectedIndex == 1
                   ? SvgPicture.asset(
-                      'assets/Icons/navBar/navigatePageSelectedIcon.svg',
+                      'assets/Icons/navBar/explorePageSelectedIcon.svg',
                     )
-                  : SvgPicture.asset(
-                      'assets/Icons/navBar/navigatePageIcon.svg',
-                    ),
-              label: 'Navigate',
+                  : SvgPicture.asset('assets/Icons/navBar/explorePageIcon.svg'),
+              label: 'Explore',
             ),
             BottomNavigationBarItem(
               icon: widget.selectedIndex == 2
                   ? SvgPicture.asset(
-                      'assets/Icons/navBar/calendarPageSelectedIcon.svg',
+                      'assets/Icons/navBar/bookingsPageSelectedIcon.svg',
                     )
                   : SvgPicture.asset(
-                      'assets/Icons/navBar/calendarPageIcon.svg',
+                      'assets/Icons/navBar/bookingsPageIcon.svg',
                     ),
 
-              label: 'Calendar',
+              label: 'Bookings',
             ),
 
             BottomNavigationBarItem(
               icon: widget.selectedIndex == 3
                   ? SvgPicture.asset(
-                      'assets/Icons/navBar/profileSelectedIcon.svg',
+                      'assets/Icons/navBar/accountSelectedIcon.svg',
                     )
-                  : SvgPicture.asset('assets/Icons/navBar/profileIcon.svg'),
+                  : SvgPicture.asset('assets/Icons/navBar/accountIcon.svg'),
 
-              label: 'Profile',
+              label: 'Account',
             ),
           ],
         ),
