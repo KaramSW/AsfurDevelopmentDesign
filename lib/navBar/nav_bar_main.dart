@@ -32,6 +32,7 @@ class _NavBarMainState extends State<NavBarMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: _screens[_selectedIndex],
       bottomNavigationBar: CustomNavBarUi(
         selectedIndex: _selectedIndex,

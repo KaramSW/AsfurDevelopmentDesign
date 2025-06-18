@@ -68,6 +68,19 @@ flutter:
     - assets/Icons/navBar/bookingsPageIcon.svg
     - assets/Icons/navBar/bookingsPageSelectedIcon.svg
     - assets/Icons/hp_icons/notifi.svg
+    - assets/Icons/hp_icons/searchIcon.svg
+    - assets/Icons/hp_icons/allButtonArrowIcon.svg
+
+    - assets/Icons/hp_icons/category_icons/relaxationIcon.svg
+    - assets/Icons/hp_icons/category_icons/romanticIcon.svg
+    - assets/Icons/hp_icons/category_icons/adventureIcon.svg
+    - assets/Icons/hp_icons/category_icons/luxuryIcon.svg
+    - assets/Icons/hp_icons/category_icons/culturalIcon.svg
+    - assets/Icons/hp_icons/category_icons/familyIcon.svg
+
+
+
+    - assets/pictures/hp_pictures/ThailandPicture.jpg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
