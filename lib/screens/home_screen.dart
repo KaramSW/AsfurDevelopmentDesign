@@ -58,15 +58,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 50,
 
                           child: IconButton(
-                            onPressed: () {
-                              print('object');
-                            },
+                            onPressed: () {},
                             icon: SvgPicture.asset(
                               'assets/Icons/hp_icons/notifi.svg',
                               height: 50,
                               width: 50,
                             ),
                             padding: EdgeInsets.zero,
+                            highlightColor: const Color.fromARGB(
+                              80,
+                              158,
+                              158,
+                              158,
+                            ),
+                            splashRadius: 25,
                           ),
                         ),
                       ],

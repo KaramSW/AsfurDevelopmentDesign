@@ -12,7 +12,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      appBar: AppBar(title: const Text('Explore Screen')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

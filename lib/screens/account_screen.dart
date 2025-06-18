@@ -12,7 +12,6 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      appBar: AppBar(title: const Text('Account Screen')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
