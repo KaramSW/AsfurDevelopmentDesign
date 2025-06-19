@@ -398,6 +398,59 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 12),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(19, 0, 19, 48),
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            _buildPanoramaItem(
+                              'assets/pictures/hp_pictures/greecePicture.jpg',
+                              '13',
+                              'assets/Icons/hp_icons/flags/greekFlag.svg',
+                              'Greece',
+                              'Athens',
+                              () {},
+                            ),
+                            _buildPanoramaItem(
+                              'assets/pictures/hp_pictures/ThailandPicture.jpg',
+                              '10',
+                              'assets/Icons/hp_icons/flags/thailandFlag.svg',
+                              'Thailand',
+                              'Phuket',
+                              () {},
+                            ),
+                            _buildPanoramaItem(
+                              'assets/pictures/hp_pictures/francePicture.jpg',
+                              '8',
+                              'assets/Icons/hp_icons/flags/frenchFlag.svg',
+                              'France',
+                              'Paris',
+                              () {},
+                            ),
+                            _buildPanoramaItem(
+                              'assets/pictures/hp_pictures/japanPicture.jpg',
+                              '24',
+                              'assets/Icons/hp_icons/flags/japaneseFlag.svg',
+                              'Japan',
+                              'Tokyo',
+                              () {},
+                            ),
+                            _buildPanoramaItem(
+                              'assets/pictures/hp_pictures/austriaPicture.jpg',
+                              '17',
+                              'assets/Icons/hp_icons/flags/austrianFlag.svg',
+                              'Austria',
+                              'Vienna',
+                              () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
                     Padding(
                       padding: const EdgeInsets.only(top: 1000),
                       child: const Text('Welcome to the Home Screen!'),
@@ -771,6 +824,148 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPanoramaItem(
+    String imagePath,
+    String numOfPackages,
+    String countryFlagPath,
+    String packageCountry,
+    String packageCity,
+    VoidCallback onPressed,
+  ) {
+    return SizedBox(
+      width: 160,
+      height: 224,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          backgroundColor: Colors.white,
+        ),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+                height: double.infinity,
+                width: double.infinity,
+              ),
+            ),
+
+            //gradient to view Country, Flag, and city clearly
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withValues(alpha: 0.2),
+                      Colors.black.withValues(alpha: 0.4),
+                    ],
+                    stops: [0.0, 0.5, 1.0],
+                  ),
+                ),
+              ),
+            ),
+
+            //packages count label
+            Positioned(
+              left: 9,
+              top: 8,
+              child: SizedBox(
+                height: 17,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: const Color.fromARGB(255, 240, 253, 251),
+                    border: Border.all(
+                      color: const Color.fromARGB(255, 153, 246, 238),
+                      width: 1,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+
+                    child: Text(
+                      '$numOfPackages Packages',
+                      style: TextStyle(
+                        fontFamily: 'Ping',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        color: const Color.fromARGB(255, 18, 109, 113),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            //country flag country, and city labels
+            Positioned(
+              left: 9,
+              top: 185,
+              child: SizedBox(
+                height: 21,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        countryFlagPath,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        packageCountry,
+                        style: TextStyle(
+                          fontFamily: 'Ping',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Positioned(
+              left: 9,
+              top: 205,
+              child: Text(
+                ' $packageCity',
+                style: TextStyle(
+                  fontFamily: 'Ping',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

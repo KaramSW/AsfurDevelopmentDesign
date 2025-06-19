@@ -83,6 +83,11 @@ flutter:
     - assets/Icons/hp_icons/flags/southKoreaFlag.svg
     - assets/Icons/hp_icons/flags/britishFlag.svg
     - assets/Icons/hp_icons/flags/germanyFlag.svg
+    - assets/Icons/hp_icons/flags/thailandFlag.svg
+    - assets/Icons/hp_icons/flags/frenchFlag.svg
+    - assets/Icons/hp_icons/flags/japaneseFlag.svg
+    - assets/Icons/hp_icons/flags/austrianFlag.svg
+    - assets/Icons/hp_icons/flags/greekFlag.svg
 
 
     - assets/Icons/hp_icons/currency_icons/DirhamSymbol.svg
@@ -90,6 +95,10 @@ flutter:
 
 
     - assets/pictures/hp_pictures/ThailandPicture.jpg
+    - assets/pictures/hp_pictures/austriaPicture.jpg
+    - assets/pictures/hp_pictures/francePicture.jpg
+    - assets/pictures/hp_pictures/greecePicture.jpg
+    - assets/pictures/hp_pictures/japanPicture.jpg
     - assets/pictures/hp_pictures/historicalKorea.jpg
     - assets/pictures/hp_pictures/coldplayConcert.jpg
     - assets/pictures/hp_pictures/summerInLondon.jpg
