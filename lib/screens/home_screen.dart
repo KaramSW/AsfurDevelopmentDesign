@@ -931,11 +931,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   child: Row(
                     children: [
-                      SvgPicture.asset(
-                        countryFlagPath,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
+                      SvgPicture.asset(countryFlagPath, width: 16, height: 16),
                       SizedBox(width: 4),
                       Text(
                         packageCountry,
