@@ -70,6 +70,8 @@ flutter:
     - assets/Icons/hp_icons/notifi.svg
     - assets/Icons/hp_icons/searchIcon.svg
     - assets/Icons/hp_icons/allButtonArrowIcon.svg
+    - assets/Icons/hp_icons/verifiedIcon.svg
+    - assets/Icons/hp_icons/starIcon.svg
 
     - assets/Icons/hp_icons/category_icons/relaxationIcon.svg
     - assets/Icons/hp_icons/category_icons/romanticIcon.svg
@@ -78,9 +80,21 @@ flutter:
     - assets/Icons/hp_icons/category_icons/culturalIcon.svg
     - assets/Icons/hp_icons/category_icons/familyIcon.svg
 
+    - assets/Icons/hp_icons/flags/southKoreaFlag.svg
+    - assets/Icons/hp_icons/flags/britishFlag.svg
+    - assets/Icons/hp_icons/flags/germanyFlag.svg
+
+
+    - assets/Icons/hp_icons/currency_icons/DirhamSymbol.svg
+
 
 
     - assets/pictures/hp_pictures/ThailandPicture.jpg
+    - assets/pictures/hp_pictures/historicalKorea.jpg
+    - assets/pictures/hp_pictures/coldplayConcert.jpg
+    - assets/pictures/hp_pictures/summerInLondon.jpg
+    - assets/pictures/hp_pictures/islaAvatar.png
+    - assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

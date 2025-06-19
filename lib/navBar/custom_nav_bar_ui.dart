@@ -43,7 +43,7 @@ class _CustomNavBarState extends State<CustomNavBarUi> {
           topRight: Radius.circular(25),
         ),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 10),
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 10),
           child: Theme(
             data: Theme.of(context).copyWith(
               //splashColor: Colors.transparent,

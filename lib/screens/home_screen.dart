@@ -275,7 +275,120 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 19, top: 42),
                         child: Text(
-                          'Top packages',
+                          'Top Packages',
+                          style: TextStyle(
+                            fontFamily: 'Ping',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: const Color.fromARGB(255, 24, 34, 48),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.only(bottom: 61),
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          spacing: 12,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 19),
+                              child: _buildPackageItem(
+                                'assets/pictures/hp_pictures/historicalKorea.jpg',
+                                'Historical Korea',
+                                'assets/Icons/hp_icons/flags/southKoreaFlag.svg',
+                                'Seoul, Korea',
+                                '5 Days | 4 Nights',
+                                '100',
+                                1,
+                                'assets/pictures/hp_pictures/islaAvatar.png',
+                                'May Green',
+                                '4.9',
+                                () {},
+                              ),
+                            ),
+                            _buildPackageItem(
+                              'assets/pictures/hp_pictures/coldplayConcert.jpg',
+                              'Coldplay Concert',
+                              'assets/Icons/hp_icons/flags/germanyFlag.svg',
+                              'Munich, Germany',
+                              '25th June',
+                              '100',
+                              2,
+                              'assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png',
+                              'Travel Online Agency',
+                              '5',
+                              () {},
+                            ),
+                            _buildPackageItem(
+                              'assets/pictures/hp_pictures/summerInLondon.jpg',
+                              'Summer in London',
+                              'assets/Icons/hp_icons/flags/britishFlag.svg',
+                              'London, GP',
+                              '5 Days | 8 Nights',
+                              '100',
+                              2,
+                              'assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png',
+                              'Travel Online Agency',
+                              '5',
+                              () {},
+                            ),
+
+                            _buildPackageItem(
+                              'assets/pictures/hp_pictures/historicalKorea.jpg',
+                              'Historical Korea',
+                              'assets/Icons/hp_icons/flags/southKoreaFlag.svg',
+                              'Seoul, Korea',
+                              '5 Days | 4 Nights',
+                              '100',
+                              1,
+                              'assets/pictures/hp_pictures/islaAvatar.png',
+                              'May Green',
+                              '4.9',
+                              () {},
+                            ),
+                            _buildPackageItem(
+                              'assets/pictures/hp_pictures/coldplayConcert.jpg',
+                              'Coldplay Concert',
+                              'assets/Icons/hp_icons/flags/germanyFlag.svg',
+                              'Munich, Germany',
+                              '25th June',
+                              '100',
+                              2,
+                              'assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png',
+                              'Travel Online Agency',
+                              '5',
+                              () {},
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 19),
+                              child: _buildPackageItem(
+                                'assets/pictures/hp_pictures/summerInLondon.jpg',
+                                'Summer in London',
+                                'assets/Icons/hp_icons/flags/britishFlag.svg',
+                                'London, GP',
+                                '5 Days | 8 Nights',
+                                '100',
+                                2,
+                                'assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png',
+                                'Travel Online Agency',
+                                '5',
+                                () {},
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(19, 0, 0, 0),
+                        child: Text(
+                          'Getaways Panorama',
                           style: TextStyle(
                             fontFamily: 'Ping',
                             fontSize: 16,
@@ -373,6 +486,293 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  ////////
+
+  Widget _buildPackageItem(
+    String iconPath,
+    String packageName,
+    String countryFlagPath,
+    String countryCityName,
+    String dateOrDuration,
+    String price,
+    int avatarShape,
+    String avatarPath,
+    String providerName,
+    String providerRating,
+    VoidCallback onPressed,
+  ) {
+    double avatarRadius = 30;
+    if (avatarShape == 1) {
+      avatarRadius = 30;
+    } else if (avatarShape == 2) {
+      avatarRadius = 4;
+    }
+    return SizedBox(
+      width: 254,
+      height: 346,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18.5),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(
+                255,
+                234,
+                235,
+                236,
+              ), // Shadow color with opacity
+              spreadRadius: 0, // Spread value
+              blurRadius: 8, // Blur value
+              offset: Offset(0, 13), // Offset (horizontal, vertical)
+            ),
+          ],
+        ),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style:
+              ElevatedButton.styleFrom(
+                elevation: 0,
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.5),
+                ),
+                backgroundColor: Colors.white,
+                side: BorderSide(
+                  color: const Color.fromARGB(255, 242, 244, 247),
+                  width: 1,
+                ),
+              ).copyWith(
+                elevation: WidgetStateProperty.all(0),
+                overlayColor: WidgetStateProperty.all(
+                  const Color.fromARGB(255, 242, 244, 247),
+                ),
+              ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(18.5),
+                    topRight: Radius.circular(18.5),
+                  ),
+                  child: Image(
+                    image: AssetImage(iconPath),
+                    width: 254,
+                    height: 168,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 9, left: 16),
+                child: Text(
+                  packageName,
+                  style: const TextStyle(
+                    fontFamily: 'Ping',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Color.fromARGB(255, 24, 34, 48),
+                  ),
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4, left: 16),
+                    child: SvgPicture.asset(
+                      countryFlagPath,
+                      width: 17,
+                      height: 13,
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  Text(
+                    countryCityName,
+                    style: TextStyle(
+                      fontFamily: 'Ping',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: Color.fromARGB(255, 24, 34, 48),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 4, left: 16),
+                child: Text(
+                  dateOrDuration,
+                  style: TextStyle(
+                    fontFamily: 'Ping',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: const Color.fromARGB(255, 102, 112, 133),
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsetsGeometry.only(top: 16, left: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 4, 2, 0),
+                      child: SvgPicture.asset(
+                        'assets/Icons/hp_icons/currency_icons/DirhamSymbol.svg',
+                        width: 13,
+                        height: 12,
+                      ),
+                    ),
+                    Text(
+                      '$price/ ',
+                      style: TextStyle(
+                        fontFamily: 'Ping',
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: const Color.fromARGB(255, 18, 109, 113),
+                      ),
+                    ),
+                    Text(
+                      'Per Person',
+                      style: TextStyle(
+                        fontFamily: 'Ping',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color.fromARGB(255, 24, 34, 48),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 13),
+                child: SizedBox(
+                  width: 254,
+                  height: 48,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 242, 244, 247),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(18.5),
+                        bottomRight: Radius.circular(18.5),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 41,
+                            height: 34,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  left: 0,
+                                  top: 0,
+                                  child: Container(
+                                    width: 32,
+                                    height: 32,
+                                    padding: EdgeInsets.all(0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        avatarRadius,
+                                      ),
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 1,
+                                      ),
+                                    ),
+
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(avatarRadius),
+                                      ),
+                                      child: Image.asset(
+                                        avatarPath,
+                                        fit: BoxFit.cover,
+                                        width: 32,
+                                        height: 32,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 25,
+                                  top: 16,
+                                  child: SvgPicture.asset(
+                                    'assets/Icons/hp_icons/verifiedIcon.svg',
+                                    width: 16,
+                                    height: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            providerName,
+                            style: TextStyle(
+                              fontFamily: 'Ping',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: const Color.fromARGB(255, 24, 34, 48),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox(
+                            height: 26,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: const Color.fromARGB(255, 249, 250, 251),
+                                border: Border.all(
+                                  color: const Color.fromARGB(
+                                    255,
+                                    234,
+                                    236,
+                                    240,
+                                  ),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/Icons/hp_icons/starIcon.svg',
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      providerRating,
+                                      style: TextStyle(
+                                        fontFamily: 'Ping',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
