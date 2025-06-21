@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -28,70 +30,81 @@ class _CustomNavBarState extends State<CustomNavBarUi> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(255, 221, 222, 225),
+            color: Color.fromARGB(10, 0, 0, 0),
             spreadRadius: 30,
             blurRadius: 50,
             offset: const Offset(0, 0),
           ),
         ],
       ),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          //splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          //splashFactory: NoSplash.splashFactory,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
         ),
-        child: BottomNavigationBar(
-          elevation: 0,
-          currentIndex: widget.selectedIndex,
-          onTap: widget.onItemTapped,
-          backgroundColor: Colors.transparent,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-
-          items: [
-            BottomNavigationBarItem(
-              icon: widget.selectedIndex == 0
-                  ? SvgPicture.asset(
-                      'assets/Icons/navBar/homePageSelectedIcon.svg',
-                    )
-                  : SvgPicture.asset('assets/Icons/navBar/homePageIcon.svg'),
-              label: 'Home',
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 10),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              //splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              //splashFactory: NoSplash.splashFactory,
             ),
+            child: BottomNavigationBar(
+              elevation: 0,
+              currentIndex: widget.selectedIndex,
+              onTap: widget.onItemTapped,
+              backgroundColor: Colors.transparent,
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
 
-            BottomNavigationBarItem(
-              icon: widget.selectedIndex == 1
-                  ? SvgPicture.asset(
-                      'assets/Icons/navBar/navigatePageSelectedIcon.svg',
-                    )
-                  : SvgPicture.asset(
-                      'assets/Icons/navBar/navigatePageIcon.svg',
-                    ),
-              label: 'Navigate',
+              items: [
+                BottomNavigationBarItem(
+                  icon: widget.selectedIndex == 0
+                      ? SvgPicture.asset(
+                          'assets/Icons/navBar/homePageSelectedIcon.svg',
+                        )
+                      : SvgPicture.asset(
+                          'assets/Icons/navBar/homePageIcon.svg',
+                        ),
+                  label: 'Home',
+                ),
+
+                BottomNavigationBarItem(
+                  icon: widget.selectedIndex == 1
+                      ? SvgPicture.asset(
+                          'assets/Icons/navBar/explorePageSelectedIcon.svg',
+                        )
+                      : SvgPicture.asset(
+                          'assets/Icons/navBar/explorePageIcon.svg',
+                        ),
+                  label: 'Explore',
+                ),
+                BottomNavigationBarItem(
+                  icon: widget.selectedIndex == 2
+                      ? SvgPicture.asset(
+                          'assets/Icons/navBar/bookingsPageSelectedIcon.svg',
+                        )
+                      : SvgPicture.asset(
+                          'assets/Icons/navBar/bookingsPageIcon.svg',
+                        ),
+
+                  label: 'Bookings',
+                ),
+
+                BottomNavigationBarItem(
+                  icon: widget.selectedIndex == 3
+                      ? SvgPicture.asset(
+                          'assets/Icons/navBar/accountSelectedIcon.svg',
+                        )
+                      : SvgPicture.asset('assets/Icons/navBar/accountIcon.svg'),
+
+                  label: 'Account',
+                ),
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: widget.selectedIndex == 2
-                  ? SvgPicture.asset(
-                      'assets/Icons/navBar/calendarPageSelectedIcon.svg',
-                    )
-                  : SvgPicture.asset(
-                      'assets/Icons/navBar/calendarPageIcon.svg',
-                    ),
-
-              label: 'Calendar',
-            ),
-
-            BottomNavigationBarItem(
-              icon: widget.selectedIndex == 3
-                  ? SvgPicture.asset(
-                      'assets/Icons/navBar/profileSelectedIcon.svg',
-                    )
-                  : SvgPicture.asset('assets/Icons/navBar/profileIcon.svg'),
-
-              label: 'Profile',
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -54,18 +54,60 @@ flutter:
     # The following line ensures that the Material Icons font is
     # included with your application, so that you can use the icons in
     # the material Icons class.
-    - assets/Icons/logo.svg
+    - assets/Icons/logo.svg    
+    - assets/Icons/asfurLogo.svg
     - assets/Icons/appleLogo.svg
     - assets/Icons/googleLogo.svg
     - assets/Icons/resendSymbol.svg
     - assets/Icons/navBar/homePageIcon.svg
     - assets/Icons/navBar/homePageSelectedIcon.svg
-    - assets/Icons/navBar/profileIcon.svg
-    - assets/Icons/navBar/profileSelectedIcon.svg
-    - assets/Icons/navBar/navigatePageIcon.svg
-    - assets/Icons/navBar/navigatePageSelectedIcon.svg
-    - assets/Icons/navBar/calendarPageIcon.svg
-    - assets/Icons/navBar/calendarPageSelectedIcon.svg
+    - assets/Icons/navBar/accountIcon.svg
+    - assets/Icons/navBar/accountSelectedIcon.svg
+    - assets/Icons/navBar/explorePageIcon.svg
+    - assets/Icons/navBar/explorePageSelectedIcon.svg
+    - assets/Icons/navBar/bookingsPageIcon.svg
+    - assets/Icons/navBar/bookingsPageSelectedIcon.svg
+    - assets/Icons/hp_icons/notifi.svg
+    - assets/Icons/hp_icons/searchIcon.svg
+    - assets/Icons/hp_icons/allButtonArrowIcon.svg
+    - assets/Icons/hp_icons/verifiedIcon.svg
+    - assets/Icons/hp_icons/starIcon.svg
+    - assets/Icons/hp_icons/rocketIcon.svg
+
+    - assets/Icons/hp_icons/category_icons/relaxationIcon.svg
+    - assets/Icons/hp_icons/category_icons/romanticIcon.svg
+    - assets/Icons/hp_icons/category_icons/adventureIcon.svg
+    - assets/Icons/hp_icons/category_icons/luxuryIcon.svg
+    - assets/Icons/hp_icons/category_icons/culturalIcon.svg
+    - assets/Icons/hp_icons/category_icons/familyIcon.svg
+
+    - assets/Icons/hp_icons/flags/southKoreaFlag.svg
+    - assets/Icons/hp_icons/flags/britishFlag.svg
+    - assets/Icons/hp_icons/flags/germanyFlag.svg
+    - assets/Icons/hp_icons/flags/thailandFlag.svg
+    - assets/Icons/hp_icons/flags/frenchFlag.svg
+    - assets/Icons/hp_icons/flags/japaneseFlag.svg
+    - assets/Icons/hp_icons/flags/austrianFlag.svg
+    - assets/Icons/hp_icons/flags/greekFlag.svg
+
+
+    - assets/Icons/hp_icons/currency_icons/DirhamSymbol.svg
+
+
+
+    - assets/pictures/hp_pictures/ThailandPicture.jpg
+    - assets/pictures/hp_pictures/austriaPicture.jpg
+    - assets/pictures/hp_pictures/francePicture.jpg
+    - assets/pictures/hp_pictures/greecePicture.jpg
+    - assets/pictures/hp_pictures/japanPicture.jpg
+    - assets/pictures/hp_pictures/historicalKorea.jpg
+    - assets/pictures/hp_pictures/coldplayConcert.jpg
+    - assets/pictures/hp_pictures/summerInLondon.jpg
+    - assets/pictures/hp_pictures/islaAvatar.png
+    - assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png
+
+    - assets/pictures/hp_pictures/exclusive_offers_pictures/dreamTravelDiscounts.jpg
+    - assets/pictures/hp_pictures/exclusive_offers_pictures/sanFransiscoDiscount.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -109,6 +151,24 @@ flutter:
           weight: 700
         - asset: assets/fonts/Cairo/static/Cairo-Light.ttf
           weight: 300
+    - family: Ping
+      fonts:
+      - asset: assets/fonts/Ping/Ping_Thin.ttf
+        weight: 100
+      - asset: assets/fonts/Ping/Ping_ExtraLight.ttf
+        weight: 200
+      - asset: assets/fonts/Ping/Ping_Light.ttf
+        weight: 300
+      - asset: assets/fonts/Ping/Ping_Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Ping/Ping_Medium.ttf
+        weight: 500
+      - asset: assets/fonts/Ping/Ping_Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Ping/Ping_Heavy.ttf
+        weight: 800
+      - asset: assets/fonts/Ping/Ping_Black.ttf
+        weight: 900
 flutter_icons:
     android: true
     ios: true

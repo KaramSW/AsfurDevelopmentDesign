@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
-import 'screens/home_screen.dart';
+import 'navBar/nav_bar_main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -181,9 +181,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             'Welcome Back!',
                             style: TextStyle(
-                              fontSize: 42,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Cairo',
+                              fontSize: 30,
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'Ping',
                             ),
                           ),
 
@@ -191,13 +191,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (!showOtpScreen) ...[
                             // Subtitle 2
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                               child: Text(
                                 'Log in with Phone Number',
                                 style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Ping',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
                                   color: Colors.black,
                                 ),
                               ),
@@ -250,8 +250,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               Text(
                                                 'SA',
                                                 style: TextStyle(
-                                                  fontFamily: 'Cairo',
+                                                  fontFamily: 'Ping',
                                                   fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
                                                   color: Colors.black87,
                                                 ),
                                               ),
@@ -275,7 +276,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               counterText: '',
                                               hintText: 'Phone',
                                               hintStyle: TextStyle(
-                                                fontFamily: 'Cairo',
+                                                fontFamily: 'Ping',
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 16,
                                                 color: Colors.grey,
                                               ),
                                               border: InputBorder.none,
@@ -347,8 +350,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Text(
                                       'Log In',
                                       style: TextStyle(
-                                        fontFamily: 'Cairo',
+                                        fontFamily: 'Ping',
                                         fontSize: 18,
+                                        fontWeight: FontWeight.w700,
                                         color: isPhoneComplete
                                             ? Colors.white
                                             : const Color.fromARGB(
@@ -366,12 +370,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             // "Or Log in with" Text
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 52, 0, 0),
                               child: Text(
                                 'or Log in with',
                                 style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Ping',
+                                  fontWeight: FontWeight.w700,
                                   fontSize: 18,
                                   color: Colors.black,
                                 ),
@@ -460,20 +464,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           //OTP Screen
                           else ...[
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                               child: Text(
                                 'Enter OTP',
                                 style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Ping',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
                                   color: Colors.black,
                                 ),
                               ),
                             ),
 
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 20, 25, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 25, 0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -523,15 +527,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                               _onOtpChanged(value, index),
                                           decoration: InputDecoration(
                                             hintText: '_',
+                                            hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                255,
+                                                102,
+                                                112,
+                                                133,
+                                              ),
+                                            ),
                                             contentPadding:
                                                 EdgeInsetsGeometry.zero,
                                             counterText: '',
-                                            border: OutlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               borderSide: BorderSide(
-                                                color: Colors.grey.shade300,
-                                                width: 2,
+                                                color: Color.fromARGB(
+                                                  255,
+                                                  208,
+                                                  213,
+                                                  221,
+                                                ),
+                                                width: 1,
                                               ),
                                             ),
                                             focusedBorder: OutlineInputBorder(
@@ -566,9 +583,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Text(
                                       '-',
                                       style: TextStyle(
-                                        fontFamily: 'Cairo',
+                                        fontFamily: 'Ping',
                                         fontSize: 30,
-                                        color: Colors.black,
+                                        color: Color.fromARGB(255, 24, 34, 48),
                                       ),
                                     ),
                                   ),
@@ -621,15 +638,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                               _onOtpChanged(value, actualIndex),
                                           decoration: InputDecoration(
                                             hintText: '_',
+
+                                            hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                255,
+                                                102,
+                                                112,
+                                                133,
+                                              ),
+                                            ),
                                             contentPadding:
                                                 EdgeInsetsGeometry.zero,
                                             counterText: '',
-                                            border: OutlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               borderSide: BorderSide(
-                                                color: Colors.grey.shade300,
-                                                width: 2,
+                                                color: Color.fromARGB(
+                                                  255,
+                                                  208,
+                                                  213,
+                                                  221,
+                                                ),
+                                                width: 1,
                                               ),
                                             ),
                                             focusedBorder: OutlineInputBorder(
@@ -647,7 +678,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                           style: TextStyle(
-                                            fontFamily: 'Cairo',
+                                            fontFamily: 'Ping',
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -673,7 +704,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    HomeScreen(),
+                                                    const NavBarMain(),
                                               ),
                                             );
                                           }
@@ -718,6 +749,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: TextStyle(
                                         fontFamily: 'Cairo',
                                         fontSize: 18,
+                                        fontWeight: FontWeight.w700,
                                         color: isOtpComplete
                                             ? Colors.white
                                             : const Color.fromARGB(
@@ -738,9 +770,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
                                 "Didn't receive the OTP code?",
                                 style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontFamily: 'Ping',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
                                   color: Color.fromARGB(255, 71, 84, 103),
                                 ),
                               ),
@@ -787,9 +819,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                             109,
                                             113,
                                           ),
-                                          fontFamily: 'Cairo',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Ping',
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
                                         ),
                                       ),
                                     ],
