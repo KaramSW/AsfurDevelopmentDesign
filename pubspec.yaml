@@ -72,6 +72,7 @@ flutter:
     - assets/Icons/hp_icons/allButtonArrowIcon.svg
     - assets/Icons/hp_icons/verifiedIcon.svg
     - assets/Icons/hp_icons/starIcon.svg
+    - assets/Icons/hp_icons/rocketIcon.svg
 
     - assets/Icons/hp_icons/category_icons/relaxationIcon.svg
     - assets/Icons/hp_icons/category_icons/romanticIcon.svg
@@ -104,6 +105,9 @@ flutter:
     - assets/pictures/hp_pictures/summerInLondon.jpg
     - assets/pictures/hp_pictures/islaAvatar.png
     - assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png
+
+    - assets/pictures/hp_pictures/exclusive_offers_pictures/dreamTravelDiscounts.jpg
+    - assets/pictures/hp_pictures/exclusive_offers_pictures/sanFransiscoDiscount.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

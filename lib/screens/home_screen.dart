@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/login_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/package_item_widget.dart';
+import '../widgets/panorama_item_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -346,51 +346,60 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           spacing: 8,
                           children: [
-                            _buildPanoramaItem(
-                              'assets/pictures/hp_pictures/greecePicture.jpg',
-                              '13',
-                              'assets/Icons/hp_icons/flags/greekFlag.svg',
-                              'Greece',
-                              'Athens',
-                              1,
-                              () {},
+                            PanoramaItemWidget(
+                              imagePath:
+                                  'assets/pictures/hp_pictures/greecePicture.jpg',
+                              numOfPackages: '13',
+                              countryFlagPath:
+                                  'assets/Icons/hp_icons/flags/greekFlag.svg',
+                              packageCountry: 'Greece',
+                              packageCity: 'Athens',
+                              colorPalette: 1,
+                              onPressed: () {},
                             ),
-                            _buildPanoramaItem(
-                              'assets/pictures/hp_pictures/ThailandPicture.jpg',
-                              '10',
-                              'assets/Icons/hp_icons/flags/thailandFlag.svg',
-                              'Thailand',
-                              'Phuket',
-                              0,
-                              () {},
+                            PanoramaItemWidget(
+                              imagePath:
+                                  'assets/pictures/hp_pictures/ThailandPicture.jpg',
+                              numOfPackages: '10',
+                              countryFlagPath:
+                                  'assets/Icons/hp_icons/flags/thailandFlag.svg',
+                              packageCountry: 'Thailand',
+                              packageCity: 'Phuket',
+                              colorPalette: 0,
+                              onPressed: () {},
                             ),
-                            _buildPanoramaItem(
-                              'assets/pictures/hp_pictures/francePicture.jpg',
-                              '8',
-                              'assets/Icons/hp_icons/flags/frenchFlag.svg',
-                              'France',
-                              'Paris',
-                              0,
-                              () {},
+                            PanoramaItemWidget(
+                              imagePath:
+                                  'assets/pictures/hp_pictures/francePicture.jpg',
+                              numOfPackages: '8',
+                              countryFlagPath:
+                                  'assets/Icons/hp_icons/flags/frenchFlag.svg',
+                              packageCountry: 'France',
+                              packageCity: 'Paris',
+                              colorPalette: 0,
+                              onPressed: () {},
                             ),
-                            _buildPanoramaItem(
-                              'assets/pictures/hp_pictures/japanPicture.jpg',
-                              '24',
-                              'assets/Icons/hp_icons/flags/japaneseFlag.svg',
-                              'Japan',
-                              'Tokyo',
-
-                              2,
-                              () {},
+                            PanoramaItemWidget(
+                              imagePath:
+                                  'assets/pictures/hp_pictures/japanPicture.jpg',
+                              numOfPackages: '24',
+                              countryFlagPath:
+                                  'assets/Icons/hp_icons/flags/japaneseFlag.svg',
+                              packageCountry: 'Japan',
+                              packageCity: 'Tokyo',
+                              colorPalette: 2,
+                              onPressed: () {},
                             ),
-                            _buildPanoramaItem(
-                              'assets/pictures/hp_pictures/austriaPicture.jpg',
-                              '17',
-                              'assets/Icons/hp_icons/flags/austrianFlag.svg',
-                              'Austria',
-                              'Vienna',
-                              3,
-                              () {},
+                            PanoramaItemWidget(
+                              imagePath:
+                                  'assets/pictures/hp_pictures/austriaPicture.jpg',
+                              numOfPackages: '17',
+                              countryFlagPath:
+                                  'assets/Icons/hp_icons/flags/austrianFlag.svg',
+                              packageCountry: 'Austria',
+                              packageCity: 'Vienna',
+                              colorPalette: 3,
+                              onPressed: () {},
                             ),
                           ],
                         ),
@@ -398,26 +407,187 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.only(top: 1000),
-                      child: const Text('Welcome to the Home Screen!'),
-                    ),
-                    Image.asset(
-                      'assets/pictures/hp_pictures/ThailandPicture.jpg',
-                      width: 160,
-                      height: 244,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 100),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
+                      padding: const EdgeInsets.fromLTRB(19, 0, 19, 48),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 277,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 240, 254, 252),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 204, 251, 245),
+                              width: 1,
                             ),
-                          );
-                        },
-                        child: const Text('Go Back'),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color.fromARGB(255, 234, 235, 236),
+                                spreadRadius: 0,
+                                blurRadius: 10,
+                                offset: Offset(0, 12),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/Icons/hp_icons/rocketIcon.svg',
+                                  width: 40,
+                                  height: 40,
+                                ),
+                                Text(
+                                  'Design your own\nperfect trip!',
+                                  style: TextStyle(
+                                    fontFamily: 'Ping',
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w900,
+                                    color: const Color.fromARGB(
+                                      255,
+                                      24,
+                                      34,
+                                      48,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Choose your destinations, timings,'
+                                  ' and accommodations. Your adventure, your way.',
+                                  style: TextStyle(
+                                    fontFamily: 'Ping',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color.fromARGB(
+                                      255,
+                                      24,
+                                      34,
+                                      48,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+
+                                SizedBox(
+                                  width: 141,
+                                  height: 35,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromARGB(
+                                        255,
+                                        21,
+                                        183,
+                                        183,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      padding: const EdgeInsets.all(0),
+                                    ),
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Explore Now',
+                                      style: TextStyle(
+                                        fontFamily: 'Ping',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 19),
+                        child: Text(
+                          'Exclusive Offers',
+                          style: TextStyle(
+                            fontFamily: 'Ping',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: const Color.fromARGB(255, 24, 34, 48),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(19, 0, 19, 48),
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            _buildExclsiveOfferItem(
+                              'assets/pictures/hp_pictures/exclusive_offers_pictures/sanFransiscoDiscount.png',
+                            ),
+                            _buildExclsiveOfferItem(
+                              'assets/pictures/hp_pictures/exclusive_offers_pictures/dreamTravelDiscounts.jpg',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 19),
+                        child: Text(
+                          'Trending Packages',
+                          style: TextStyle(
+                            fontFamily: 'Ping',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: const Color.fromARGB(255, 24, 34, 48),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, bottom: 131),
+                      child: SizedBox(
+                        height: 406,
+                        child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 19),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: _getPackageItems().length,
+                          itemBuilder: (context, index) {
+                            final packageData = _getPackageItems()[index];
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                right: index < _getPackageItems().length - 1
+                                    ? 12
+                                    : 0,
+                              ),
+                              child: PackageItemWidget(
+                                iconPath: packageData['iconPath']!,
+                                packageName: packageData['packageName']!,
+                                countryFlagPath:
+                                    packageData['countryFlagPath']!,
+                                countryCityName:
+                                    packageData['countryCityName']!,
+                                dateOrDuration: packageData['dateOrDuration']!,
+                                price: packageData['price']!,
+                                avatarShape: packageData['avatarShape'] as int,
+                                avatarPath: packageData['avatarPath']!,
+                                providerName: packageData['providerName']!,
+                                providerRating: packageData['providerRating']!,
+                                onPressed: () {},
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -488,161 +658,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  ////////
-
-  Widget _buildPanoramaItem(
-    String imagePath,
-    String numOfPackages,
-    String countryFlagPath,
-    String packageCountry,
-    String packageCity,
-    int colorPallete,
-    VoidCallback onPressed,
-  ) {
-    Color? packageFontColor = const Color.fromARGB(255, 18, 146, 149);
-    Color? packageBackgroundColor = const Color.fromARGB(255, 240, 253, 251);
-    Color? packageBorderColor = const Color.fromARGB(255, 153, 246, 238);
-
-    if (colorPallete == 1) {
-      packageFontColor = const Color.fromARGB(255, 23, 92, 211);
-      packageBackgroundColor = const Color.fromARGB(255, 239, 248, 255);
-      packageBorderColor = const Color.fromARGB(255, 178, 221, 255);
-    } else if (colorPallete == 2) {
-      packageFontColor = const Color.fromARGB(255, 180, 35, 24);
-      packageBackgroundColor = const Color.fromARGB(255, 254, 243, 242);
-      packageBorderColor = const Color.fromARGB(255, 254, 205, 202);
-    } else if (colorPallete == 3) {
-      packageFontColor = const Color.fromARGB(255, 181, 71, 8);
-      packageBackgroundColor = const Color.fromARGB(255, 255, 250, 235);
-      packageBorderColor = const Color.fromARGB(255, 254, 223, 137);
-    }
-
+  Widget _buildExclsiveOfferItem(String imagePath) {
     return SizedBox(
-      width: 160,
-      height: 224,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          backgroundColor: Colors.white,
-        ),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-                height: double.infinity,
-                width: double.infinity,
-              ),
-            ),
-
-            //gradient to view Country, Flag, and city clearly
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 70,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black.withValues(alpha: 0.2),
-                      Colors.black.withValues(alpha: 0.4),
-                    ],
-                    stops: [0.0, 0.5, 1.0],
-                  ),
-                ),
-              ),
-            ),
-
-            //packages count label
-            Positioned(
-              left: 9,
-              top: 8,
-              child: SizedBox(
-                height: 19,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: packageBackgroundColor,
-                    border: Border.all(color: packageBorderColor, width: 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
-
-                    child: Text(
-                      '$numOfPackages Packages',
-                      style: TextStyle(
-                        fontFamily: 'Ping',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: packageFontColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            //country flag country, and city labels
-            Positioned(
-              left: 9,
-              top: 185,
-              child: SizedBox(
-                height: 21,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
-
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(countryFlagPath, width: 16, height: 16),
-                      SizedBox(width: 4),
-                      Text(
-                        packageCountry,
-                        style: TextStyle(
-                          fontFamily: 'Ping',
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
-            Positioned(
-              left: 9,
-              top: 205,
-              child: Text(
-                ' $packageCity',
-                style: TextStyle(
-                  fontFamily: 'Ping',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
+      width: 344,
+      height: 144,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Image.asset(imagePath, fit: BoxFit.cover),
       ),
     );
   }
+
+  ////////
 
   List<Map<String, dynamic>> _getPackageItems() {
     return [
