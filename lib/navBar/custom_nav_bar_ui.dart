@@ -20,8 +20,10 @@ class CustomNavBarUi extends StatefulWidget {
 class _CustomNavBarState extends State<CustomNavBarUi> {
   @override
   Widget build(BuildContext context) {
+    final double containerHeight = (MediaQuery.of(context).padding.bottom) + 70;
+
     return Container(
-      height: 70,
+      height: containerHeight,
       decoration: BoxDecoration(
         color: Color.fromARGB(225, 255, 255, 255),
         borderRadius: const BorderRadius.only(
