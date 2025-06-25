@@ -527,10 +527,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           spacing: 8,
                           children: [
-                            _buildExclsiveOfferItem(
+                            _buildExclusiveOfferItem(
                               'assets/pictures/hp_pictures/exclusive_offers_pictures/sanFransiscoDiscount.png',
                             ),
-                            _buildExclsiveOfferItem(
+                            _buildExclusiveOfferItem(
                               'assets/pictures/hp_pictures/exclusive_offers_pictures/dreamTravelDiscounts.jpg',
                             ),
                           ],
@@ -658,7 +658,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildExclsiveOfferItem(String imagePath) {
+  Widget _buildExclusiveOfferItem(String imagePath) {
     return SizedBox(
       width: 344,
       height: 144,
