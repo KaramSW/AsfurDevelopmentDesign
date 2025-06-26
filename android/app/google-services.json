@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "82227568954",
+    "project_id": "mvp-asfur",
+    "storage_bucket": "mvp-asfur.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82227568954:android:0aa1ec28c6d82eba12b003",
+        "android_client_info": {
+          "package_name": "com.example.flutter_projects"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy0FCfhgqnQcQ99IWhzORL8Paw6NSOJJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
