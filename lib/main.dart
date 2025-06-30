@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_projects/provider/google_sign_in.dart';
 import 'login_screen.dart';
-import 'screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import '../navBar/nav_bar_main.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: googleSignInProvider.isUserLoggedIn
-          ? const HomeScreen()
+          ? const NavBarMain()
           : const LoginScreen(),
     );
   }

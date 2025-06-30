@@ -395,13 +395,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Container(
                                     margin: const EdgeInsets.only(right: 10),
                                     child: ElevatedButton(
-                                      onPressed: () {
+                                      onPressed: () async {
                                         final provider =
                                             Provider.of<GoogleSignInProvider>(
                                               context,
                                               listen: false,
                                             );
-                                        provider.googleLogin();
+                                        await provider.googleLogin();
+
+                                        if (!mounted) return;
+
+                                        if (provider.isUserLoggedIn) {
+                                          Navigator.pushReplacement(
+                                            // ignore: use_build_context_synchronously
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const NavBarMain(),
+                                            ),
+                                          );
+                                        }
                                       },
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,

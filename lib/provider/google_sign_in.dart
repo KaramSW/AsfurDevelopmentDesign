@@ -7,7 +7,7 @@ class GoogleSignInProvider extends ChangeNotifier {
 
   GoogleSignInAccount? _user;
 
-  GoogleSignInAccount get user => _user!;
+  GoogleSignInAccount? get user => _user;
 
   Future googleLogin() async {
     try {
@@ -26,5 +26,5 @@ class GoogleSignInProvider extends ChangeNotifier {
     }
   }
 
-  bool get isUserLoggedIn => _user != null;
+  bool get isUserLoggedIn => FirebaseAuth.instance.currentUser != null;
 }

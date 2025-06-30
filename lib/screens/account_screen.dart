@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -10,6 +11,7 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
@@ -35,7 +37,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 height: 74,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [],
+                  children: [Text(user?.displayName ?? 'Guest')],
                 ),
               ),
             ],
