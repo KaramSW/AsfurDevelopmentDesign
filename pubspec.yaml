@@ -77,6 +77,12 @@ flutter:
     - assets/Icons/hp_icons/verifiedIcon.svg
     - assets/Icons/hp_icons/starIcon.svg
     - assets/Icons/hp_icons/rocketIcon.svg
+    - assets/Icons/account_icons/editProfileArrow.svg
+    - assets/Icons/account_icons/requestsRocket.svg
+    - assets/Icons/account_icons/myDocuments.svg
+    - assets/Icons/account_icons/wallet.svg
+    - assets/Icons/account_icons/favorites.svg
+    - assets/Icons/account_icons/savedCards.svg
 
     - assets/Icons/hp_icons/category_icons/relaxationIcon.svg
     - assets/Icons/hp_icons/category_icons/romanticIcon.svg
