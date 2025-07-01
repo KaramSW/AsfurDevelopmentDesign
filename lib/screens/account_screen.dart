@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'account_subscreens/settings.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -60,12 +61,19 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(40)),
-                        child: Image.network(
-                          user?.photoURL ?? '',
-                          fit: BoxFit.cover,
-                          width: 74,
-                          height: 74,
-                        ),
+                        child: user?.photoURL != null
+                            ? Image.network(
+                                user!.photoURL!,
+                                fit: BoxFit.cover,
+                                width: 74,
+                                height: 74,
+                              )
+                            : SvgPicture.asset(
+                                'assets/Icons/account_icons/defaultAvatar.svg',
+                                fit: BoxFit.cover,
+                                width: 74,
+                                height: 74,
+                              ),
                       ),
                     ),
 
@@ -136,22 +144,27 @@ class _AccountScreenState extends State<AccountScreen> {
               _buildAccountScreenListItem(
                 'assets/Icons/account_icons/requestsRocket.svg',
                 'My Requests',
+                null,
               ),
               _buildAccountScreenListItem(
                 'assets/Icons/account_icons/myDocuments.svg',
                 'My Documents',
+                null,
               ),
               _buildAccountScreenListItem(
                 'assets/Icons/account_icons/wallet.svg',
                 'Wallet',
+                null,
               ),
               _buildAccountScreenListItem(
                 'assets/Icons/account_icons/favorites.svg',
                 'Favorites',
+                null,
               ),
               _buildAccountScreenListItem(
                 'assets/Icons/account_icons/savedCards.svg',
                 'Saved Cards',
+                null,
               ),
               Container(
                 width: double.infinity,
@@ -159,6 +172,27 @@ class _AccountScreenState extends State<AccountScreen> {
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 242, 244, 247),
                 ),
+              ),
+
+              SizedBox(height: 24),
+
+              _buildAccountScreenListItem(
+                'assets/Icons/account_icons/settings.svg',
+                'Settings',
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsScreen()),
+                ),
+              ),
+              _buildAccountScreenListItem(
+                'assets/Icons/account_icons/customerSupport.svg',
+                'Customer Support',
+                null,
+              ),
+              _buildAccountScreenListItem(
+                'assets/Icons/account_icons/aboutAsfur.svg',
+                'About Asfur',
+                null,
               ),
             ],
           ),
@@ -168,16 +202,20 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 }
 
-Widget _buildAccountScreenListItem(String iconPath, String title) {
+Widget _buildAccountScreenListItem(
+  String iconPath,
+  String title,
+  VoidCallback? onPressed,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 24),
     child: SizedBox(
       width: double.infinity,
       height: 24,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed ?? () {},
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          padding: EdgeInsets.zero,
           backgroundColor: Colors.white,
           elevation: 0,
           overlayColor: Colors.transparent,

@@ -22,9 +22,15 @@ class GoogleSignInProvider extends ChangeNotifier {
       await FirebaseAuth.instance.signInWithCredential(credential);
       notifyListeners();
     } catch (e) {
-      //print(e);
+      // ignore: avoid_print
+      print(e);
     }
   }
 
   bool get isUserLoggedIn => FirebaseAuth.instance.currentUser != null;
+
+  Future logout() async {
+    await googleSignIn.disconnect();
+    FirebaseAuth.instance.signOut();
+  }
 }
