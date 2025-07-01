@@ -32,7 +32,7 @@ class _CustomNavBarState extends State<CustomNavBarUi> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(10, 0, 0, 0),
+            color: Color.fromARGB(35, 0, 0, 0),
             spreadRadius: 30,
             blurRadius: 50,
             offset: const Offset(0, 0),

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_projects/provider/google_sign_in.dart';
 import 'login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import '../navBar/nav_bar_main.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.white,
@@ -10,7 +17,12 @@ void main() {
       statusBarBrightness: Brightness.light,
     ),
   );
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => GoogleSignInProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +30,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
+    final googleSignInProvider = Provider.of<GoogleSignInProvider>(context);
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: googleSignInProvider.isUserLoggedIn
+          ? const NavBarMain()
+          : const LoginScreen(),
+    );
   }
 }

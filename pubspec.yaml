@@ -32,7 +32,7 @@ dependencies:
     sdk: flutter
   firebase_core: ^3.14.0
   firebase_auth: ^5.6.0
-  google_sign_in: ^7.0.0
+  google_sign_in: ^6.3.0
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.1.0
   provider: ^6.1.5
@@ -58,57 +58,16 @@ flutter:
     # The following line ensures that the Material Icons font is
     # included with your application, so that you can use the icons in
     # the material Icons class.
-    - assets/Icons/logo.svg
-    - assets/Icons/asfurLogo.svg
-    - assets/Icons/appleLogo.svg
-    - assets/Icons/googleLogo.svg
-    - assets/Icons/resendSymbol.svg
-    - assets/Icons/navBar/homePageIcon.svg
-    - assets/Icons/navBar/homePageSelectedIcon.svg
-    - assets/Icons/navBar/accountIcon.svg
-    - assets/Icons/navBar/accountSelectedIcon.svg
-    - assets/Icons/navBar/explorePageIcon.svg
-    - assets/Icons/navBar/explorePageSelectedIcon.svg
-    - assets/Icons/navBar/bookingsPageIcon.svg
-    - assets/Icons/navBar/bookingsPageSelectedIcon.svg
-    - assets/Icons/hp_icons/notifi.svg
-    - assets/Icons/hp_icons/searchIcon.svg
-    - assets/Icons/hp_icons/allButtonArrowIcon.svg
-    - assets/Icons/hp_icons/verifiedIcon.svg
-    - assets/Icons/hp_icons/starIcon.svg
-    - assets/Icons/hp_icons/rocketIcon.svg
-
-    - assets/Icons/hp_icons/category_icons/relaxationIcon.svg
-    - assets/Icons/hp_icons/category_icons/romanticIcon.svg
-    - assets/Icons/hp_icons/category_icons/adventureIcon.svg
-    - assets/Icons/hp_icons/category_icons/luxuryIcon.svg
-    - assets/Icons/hp_icons/category_icons/culturalIcon.svg
-    - assets/Icons/hp_icons/category_icons/familyIcon.svg
-
-    - assets/Icons/hp_icons/flags/southKoreaFlag.svg
-    - assets/Icons/hp_icons/flags/britishFlag.svg
-    - assets/Icons/hp_icons/flags/germanyFlag.svg
-    - assets/Icons/hp_icons/flags/thailandFlag.svg
-    - assets/Icons/hp_icons/flags/frenchFlag.svg
-    - assets/Icons/hp_icons/flags/japaneseFlag.svg
-    - assets/Icons/hp_icons/flags/austrianFlag.svg
-    - assets/Icons/hp_icons/flags/greekFlag.svg
-
-    - assets/Icons/hp_icons/currency_icons/DirhamSymbol.svg
-
-    - assets/pictures/hp_pictures/ThailandPicture.jpg
-    - assets/pictures/hp_pictures/austriaPicture.jpg
-    - assets/pictures/hp_pictures/francePicture.jpg
-    - assets/pictures/hp_pictures/greecePicture.jpg
-    - assets/pictures/hp_pictures/japanPicture.jpg
-    - assets/pictures/hp_pictures/historicalKorea.jpg
-    - assets/pictures/hp_pictures/coldplayConcert.jpg
-    - assets/pictures/hp_pictures/summerInLondon.jpg
-    - assets/pictures/hp_pictures/islaAvatar.png
-    - assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png
-
-    - assets/pictures/hp_pictures/exclusive_offers_pictures/dreamTravelDiscounts.jpg
-    - assets/pictures/hp_pictures/exclusive_offers_pictures/sanFransiscoDiscount.png
+    - assets/Icons/
+    - assets/Icons/navBar/
+    - assets/Icons/hp_icons/
+    - assets/Icons/hp_icons/category_icons/
+    - assets/Icons/hp_icons/currency_icons/
+    - assets/Icons/hp_icons/flags/
+    - assets/Icons/account_icons/
+    - assets/Icons/account_icons/settings_icons/
+    - assets/pictures/hp_pictures/
+    - assets/pictures/hp_pictures/exclusive_offers_pictures/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
