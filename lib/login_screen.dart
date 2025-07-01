@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'navBar/nav_bar_main.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_projects/provider/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -393,8 +395,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Container(
                                     margin: const EdgeInsets.only(right: 10),
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        // Handle Google login action
+                                      onPressed: () async {
+                                        final provider =
+                                            Provider.of<GoogleSignInProvider>(
+                                              context,
+                                              listen: false,
+                                            );
+                                        await provider.googleLogin();
+
+                                        if (!mounted) return;
+
+                                        if (provider.isUserLoggedIn) {
+                                          Navigator.pushReplacement(
+                                            // ignore: use_build_context_synchronously
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const NavBarMain(),
+                                            ),
+                                          );
+                                        }
                                       },
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,
@@ -430,7 +450,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     margin: const EdgeInsets.only(right: 10),
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        // Handle Google login action
+                                        // Handle Apple login action
                                       },
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,

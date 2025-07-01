@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/package_item_widget.dart';
@@ -13,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
 
@@ -44,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.w900,
                               ),
                             ),
-                            const Text(
-                              'Hassan!',
+                            Text(
+                              user?.displayName ?? 'Guest',
                               style: TextStyle(
                                 fontFamily: 'Ping',
                                 fontSize: 16,
