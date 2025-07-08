@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'navBar/nav_bar_main.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_projects/provider/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -406,6 +407,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                         if (!mounted) return;
 
                                         if (provider.isUserLoggedIn) {
+                                          final user =
+                                              FirebaseAuth.instance.currentUser;
+                                          if (user != null) {
+                                            final idToken = await user
+                                                .getIdToken();
+                                            print(
+                                              'Google Auth ID Token: $idToken',
+                                            );
+                                          }
+
                                           Navigator.pushReplacement(
                                             // ignore: use_build_context_synchronously
                                             context,
