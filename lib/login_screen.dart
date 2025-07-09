@@ -407,16 +407,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                         if (!mounted) return;
 
                                         if (provider.isUserLoggedIn) {
-                                          final user =
-                                              FirebaseAuth.instance.currentUser;
-                                          if (user != null) {
-                                            final idToken = await user
-                                                .getIdToken();
-                                            print(
-                                              'Google Auth ID Token: $idToken',
-                                            );
-                                          }
-
                                           Navigator.pushReplacement(
                                             // ignore: use_build_context_synchronously
                                             context,
