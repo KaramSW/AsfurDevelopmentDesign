@@ -25,7 +25,7 @@ class _CustomNavBarState extends State<CustomNavBarUi> {
     return Container(
       height: containerHeight,
       decoration: BoxDecoration(
-        color: Color.fromARGB(225, 255, 255, 255),
+        color: Color.fromARGB(210, 255, 255, 255),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(25),
           topRight: Radius.circular(25),
