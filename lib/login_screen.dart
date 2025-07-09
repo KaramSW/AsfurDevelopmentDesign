@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'navBar/nav_bar_main.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_projects/provider/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
