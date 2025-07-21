@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 import 'navBar/nav_bar_main.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_projects/provider/google_sign_in.dart';
-//import 'package:dio/dio.dart';
-//import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,6 +30,23 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isTextFieldFocused = false;
   bool showOtpScreen = false;
   bool isOtpComplete = false;
+  late String selectedCountryCode;
+  final Map<String, int> countryCodes = {
+    'AE': 971,
+    'US': 1,
+    'IL': 972,
+    'GB': 44,
+    'DE': 49,
+    'SA': 966,
+    'QA': 974,
+    'EG': 20,
+    'JO': 962,
+    'KW': 965,
+    'OM': 968,
+    'BH': 973,
+    'LY': 218,
+    // Add more as needed
+  };
 
   bool _isDigitKey(LogicalKeyboardKey key) {
     return [
@@ -58,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    selectedCountryCode = countryCodes.keys.first;
     usernameController.addListener((_checkPhoneLength));
     phoneFocusNode.addListener((_onFocusChange));
 
@@ -78,6 +97,32 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isTextFieldFocused = phoneFocusNode.hasFocus;
     });
+  }
+
+  Future sendOTP() async {
+    final countryDialCode = '+${countryCodes[selectedCountryCode]}';
+    final phoneNumber = usernameController.text;
+
+    var data = FormData.fromMap({
+      'contact_country_code': countryDialCode,
+      'contact_phone': phoneNumber,
+      'user_type': 'CONSUMER',
+    });
+
+    var dio = Dio();
+
+    try {
+      await dio.request(
+        'https://staging.asfur.mvp-apps.ae/api/consumer/auth/send-otp',
+        options: Options(method: 'POST'),
+        data: data,
+      );
+    } catch (e) {
+      // Handle network or other errors
+    }
+
+    //print(countryDialCode + phoneNumber);
+    // Use countryDialCode and phoneNumber as needed
   }
 
   void _handleLogin() {
@@ -110,6 +155,61 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     _checkOTPLength();
+  }
+
+  Future<void> confirmOTP() async {
+    final otpCode = otpControllers.map((c) => c.text).join();
+    final countryDialCode = '+${countryCodes[selectedCountryCode]}';
+    final phoneNumber = usernameController.text;
+
+    var data = FormData.fromMap({
+      'otp_code': otpCode,
+      'contact_country_code': countryDialCode,
+      'contact_phone': phoneNumber,
+    });
+
+    var dio = Dio();
+    try {
+      var response = await dio.request(
+        'https://staging.asfur.mvp-apps.ae/api/consumer/auth/login-with-otp',
+        options: Options(
+          method: 'POST',
+          validateStatus: (status) =>
+              status != null && status == 200 || status == 400,
+        ),
+        data: data,
+      );
+
+      if (!mounted) return;
+
+      if (response.statusCode == 200) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
+        await prefs.setString('userData', json.encode(response.data['data']));
+        await prefs.setString(
+          'authToken',
+          response.data['data']['authorization']['token'],
+        );
+
+        if (!mounted) return;
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const NavBarMain()),
+        );
+      } else if (response.statusCode == 400) {
+        // OTP incorrect, show error
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Incorrect OTP. Please try again.')),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Network error. Please try again.')),
+      );
+    }
   }
 
   @override
@@ -251,21 +351,44 @@ class _LoginScreenState extends State<LoginScreen> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Text(
-                                                'SA',
-                                                style: TextStyle(
-                                                  fontFamily: 'Ping',
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black87,
+                                              DropdownButton<String>(
+                                                isDense: true,
+                                                underline: SizedBox(),
+                                                icon: Icon(
+                                                  Icons.keyboard_arrow_down,
+                                                  color: Colors.grey,
+                                                  size: 20,
                                                 ),
+
+                                                value: selectedCountryCode,
+                                                items: countryCodes.keys.map(
+                                                  (code) {
+                                                    return DropdownMenuItem<
+                                                      String
+                                                    >(
+                                                      value: code,
+                                                      child: Text(
+                                                        code,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Ping',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Colors.black87,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).toList(), // Convert Iterable to List
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    selectedCountryCode =
+                                                        value!;
+                                                  });
+                                                },
                                               ),
+
                                               SizedBox(width: 4),
-                                              Icon(
-                                                Icons.keyboard_arrow_down,
-                                                color: Colors.grey,
-                                                size: 20,
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -314,7 +437,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: 52,
                                   child: ElevatedButton(
                                     onPressed: isPhoneComplete
-                                        ? _handleLogin
+                                        ? () {
+                                            sendOTP();
+                                            _handleLogin();
+                                          }
                                         : () {},
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: isPhoneComplete
@@ -722,13 +848,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: ElevatedButton(
                                     onPressed: isOtpComplete
                                         ? () {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const NavBarMain(),
-                                              ),
-                                            );
+                                            confirmOTP();
                                           }
                                         : () {},
                                     style: ElevatedButton.styleFrom(

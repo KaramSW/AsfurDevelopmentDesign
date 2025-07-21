@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_projects/provider/google_sign_in.dart';
 import 'package:flutter_projects/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -171,11 +172,27 @@ class SettingsScreen extends StatelessWidget {
               _buildSettingScreenButton(
                 'Log Out',
                 'assets/Icons/account_icons/settings_icons/signOut.svg',
-                () {
-                  Provider.of<GoogleSignInProvider>(
+                () async {
+                  final googleProvider = Provider.of<GoogleSignInProvider>(
                     context,
                     listen: false,
-                  ).logout();
+                  );
+                  final prefs = await SharedPreferences.getInstance();
+
+                  if (googleProvider.isUserLoggedIn) {
+                    // Google logout
+                    googleProvider.logout();
+                    // Optionally clear Google user data from prefs here
+                    // await prefs.remove('googleUserData');
+                  } else if (prefs.getBool('isLoggedIn') ?? false) {
+                    // OTP logout
+                    await prefs.remove('isLoggedIn');
+                    await prefs.remove('userData');
+                    await prefs.remove('authToken');
+                  }
+
+                  if (!context.mounted) return;
+
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
