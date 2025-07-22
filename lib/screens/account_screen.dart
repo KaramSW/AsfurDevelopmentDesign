@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/screens/account_subscreens/edit_profile_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'account_subscreens/settings.dart';
 
@@ -96,7 +97,12 @@ class _AccountScreenState extends State<AccountScreen> {
                           width: 213,
                           height: 20,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfileScreen(),
+                              ),
+                            ),
 
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
