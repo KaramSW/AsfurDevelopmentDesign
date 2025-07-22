@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/screens/account_subscreens/settings_sub_screens/privacy_policy.dart';
+import 'package:flutter_projects/screens/account_subscreens/settings_sub_screens/terms_and_conditions.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_projects/widgets/back_button.dart';
 import 'package:flutter_projects/provider/google_sign_in.dart';
 import 'package:flutter_projects/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart';
+import 'dart:convert';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -19,22 +24,7 @@ class SettingsScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color.fromARGB(255, 208, 213, 221),
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: IconButton(
-                      icon: SvgPicture.asset('assets/Icons/backIcon.svg'),
-                      onPressed: () => Navigator.pop(context),
-                      style: ButtonStyle(),
-                    ),
-                  ),
+                  CustomBackButtonIcon(),
                   SizedBox(width: 18),
                   Text(
                     'Settings',
@@ -140,12 +130,18 @@ class SettingsScreen extends StatelessWidget {
               _buildSettingScreenListItem(
                 'assets/Icons/account_icons/settings_icons/termsAndCond.svg',
                 'Terms and Conditions',
-                null,
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TermsAndConditions()),
+                ),
               ),
               _buildSettingScreenListItem(
                 'assets/Icons/account_icons/settings_icons/privacyPolicy.svg',
                 'Privacy Policy',
-                null,
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PrivacyPolicy()),
+                ),
               ),
 
               Container(
@@ -186,6 +182,20 @@ class SettingsScreen extends StatelessWidget {
                     // await prefs.remove('googleUserData');
                   } else if (prefs.getBool('isLoggedIn') ?? false) {
                     // OTP logout
+                    final token = prefs.getString('authToken') ?? '';
+                    var headers = {'Authorization': 'Bearer $token'};
+                    var dio = Dio();
+                    var response = await dio.request(
+                      'https://staging.asfur.mvp-apps.ae/api/consumer/auth/log-out',
+                      options: Options(method: 'POST', headers: headers),
+                    );
+
+                    if (response.statusCode == 200) {
+                      print(json.encode(response.data));
+                    } else {
+                      print(response.statusMessage);
+                    }
+
                     await prefs.remove('isLoggedIn');
                     await prefs.remove('userData');
                     await prefs.remove('authToken');
