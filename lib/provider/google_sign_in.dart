@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
-  final googleSignIn = GoogleSignIn();
+  final googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
 
   GoogleSignInAccount? _user;
+  String? _googleAccessToken;
+  String? _googleIdToken;
+  String? _googleServerAuthCode;
 
   GoogleSignInAccount? get user => _user;
+  String? get googleAccessToken => _googleAccessToken;
+  String? get googleIdToken => _googleIdToken;
+  String? get googleServerAuthCode => _googleServerAuthCode;
 
   Future googleLogin() async {
     try {
@@ -15,6 +21,12 @@ class GoogleSignInProvider extends ChangeNotifier {
       if (googleUser == null) return;
       _user = googleUser;
       final googleAuth = await googleUser.authentication;
+
+      _googleAccessToken = googleAuth.accessToken;
+      _googleIdToken = googleAuth.idToken;
+      _googleServerAuthCode =
+          googleAuth.serverAuthCode; // ignore: deprecated_member_use
+
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -23,7 +35,7 @@ class GoogleSignInProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       // ignore: avoid_print
-      print(e);
+      print("Google Sign-In Error: $e");
     }
   }
 
@@ -32,5 +44,10 @@ class GoogleSignInProvider extends ChangeNotifier {
   Future logout() async {
     await googleSignIn.disconnect();
     FirebaseAuth.instance.signOut();
+    _user = null;
+    _googleAccessToken = null;
+    _googleIdToken = null;
+    _googleServerAuthCode = null;
+    notifyListeners();
   }
 }

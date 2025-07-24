@@ -177,9 +177,28 @@ class SettingsScreen extends StatelessWidget {
 
                   if (googleProvider.isUserLoggedIn) {
                     // Google logout
-                    googleProvider.logout();
-                    // Optionally clear Google user data from prefs here
-                    // await prefs.remove('googleUserData');
+                    await googleProvider.logout();
+
+                    // Backend logout API call (same as OTP)
+                    final token = prefs.getString('authToken') ?? '';
+                    var headers = {'Authorization': 'Bearer $token'};
+                    var dio = Dio();
+                    var response = await dio.request(
+                      'https://staging.asfur.mvp-apps.ae/api/consumer/auth/log-out',
+                      options: Options(method: 'POST', headers: headers),
+                    );
+
+                    if (response.statusCode == 200) {
+                      print(
+                        'This is the sucessful logout output${json.encode(response.data)}',
+                      );
+                    } else {
+                      print('Error: ${response.statusMessage}');
+                    }
+
+                    await prefs.remove('isLoggedIn');
+                    await prefs.remove('userData');
+                    await prefs.remove('authToken');
                   } else if (prefs.getBool('isLoggedIn') ?? false) {
                     // OTP logout
                     final token = prefs.getString('authToken') ?? '';

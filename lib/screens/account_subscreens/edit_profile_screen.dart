@@ -73,12 +73,7 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 16),
                   ElevatedButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EditProfileScreen(),
-                      ),
-                    ),
+                    onPressed: () {},
 
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(

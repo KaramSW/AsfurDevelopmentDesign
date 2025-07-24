@@ -212,6 +212,65 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> loginWithGoogle() async {
+    final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+    await provider.googleLogin();
+
+    if (!mounted) return;
+
+    if (provider.isUserLoggedIn) {
+      final String? authCode = provider.googleAccessToken;
+
+      if (authCode == null) {
+        ScaffoldMessenger.of(
+          context, // ignore: use_build_context_synchronously
+        ).showSnackBar(
+          SnackBar(
+            content: Text(
+              'An error occurred while logging in with Google. Please try again. null',
+            ),
+          ),
+        );
+      } else {
+        try {
+          var data = FormData.fromMap({'auth_code': authCode});
+
+          var dio = Dio();
+
+          var response = await dio.request(
+            'https://staging.asfur.mvp-apps.ae/api/consumer/auth/login-with-google',
+            options: Options(method: 'POST'),
+            data: data,
+          );
+
+          if (response.statusCode == 200) {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setBool('isLoggedIn', true);
+            await prefs.setString(
+              'userData',
+              json.encode(response.data['data']),
+            );
+            await prefs.setString(
+              'authToken',
+              response.data['data']['authorization']['token'],
+            );
+            if (!mounted) return;
+
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const NavBarMain()),
+            );
+          }
+        } catch (e) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Network error. Please try again.')),
+          );
+        }
+      }
+    }
+  }
+
   @override
   void dispose() {
     usernameController.removeListener(_checkPhoneLength);
@@ -523,26 +582,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Container(
                                     margin: const EdgeInsets.only(right: 10),
                                     child: ElevatedButton(
-                                      onPressed: () async {
-                                        final provider =
-                                            Provider.of<GoogleSignInProvider>(
-                                              context,
-                                              listen: false,
-                                            );
-                                        await provider.googleLogin();
-
-                                        if (!mounted) return;
-
-                                        if (provider.isUserLoggedIn) {
-                                          Navigator.pushReplacement(
-                                            // ignore: use_build_context_synchronously
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const NavBarMain(),
-                                            ),
-                                          );
-                                        }
+                                      onPressed: () {
+                                        loginWithGoogle();
                                       },
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,
