@@ -8,7 +8,7 @@ import 'package:flutter_projects/provider/google_sign_in.dart';
 import 'package:flutter_projects/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
-import 'dart:convert';
+//import 'dart:convert';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -183,18 +183,19 @@ class SettingsScreen extends StatelessWidget {
                     final token = prefs.getString('authToken') ?? '';
                     var headers = {'Authorization': 'Bearer $token'};
                     var dio = Dio();
-                    var response = await dio.request(
+                    /*var response =*/
+                    await dio.request(
                       'https://staging.asfur.mvp-apps.ae/api/consumer/auth/log-out',
                       options: Options(method: 'POST', headers: headers),
                     );
 
-                    if (response.statusCode == 200) {
-                      print(
-                        'This is the sucessful logout output${json.encode(response.data)}',
-                      );
-                    } else {
-                      print('Error: ${response.statusMessage}');
-                    }
+                    // if (response.statusCode == 200) {
+                    //   print(
+                    //     'This is the sucessful logout output${json.encode(response.data)}',
+                    //   );
+                    // } else {
+                    //   print('Error: ${response.statusMessage}');
+                    // }
 
                     await prefs.remove('isLoggedIn');
                     await prefs.remove('userData');
@@ -204,16 +205,17 @@ class SettingsScreen extends StatelessWidget {
                     final token = prefs.getString('authToken') ?? '';
                     var headers = {'Authorization': 'Bearer $token'};
                     var dio = Dio();
-                    var response = await dio.request(
+                    /*var response =*/
+                    await dio.request(
                       'https://staging.asfur.mvp-apps.ae/api/consumer/auth/log-out',
                       options: Options(method: 'POST', headers: headers),
                     );
 
-                    if (response.statusCode == 200) {
-                      print(json.encode(response.data));
-                    } else {
-                      print(response.statusMessage);
-                    }
+                    // if (response.statusCode == 200) {
+                    //   print(json.encode(response.data));
+                    // } else {
+                    //   print(response.statusMessage);
+                    // }
 
                     await prefs.remove('isLoggedIn');
                     await prefs.remove('userData');
