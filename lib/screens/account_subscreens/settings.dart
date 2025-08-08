@@ -154,83 +154,25 @@ class SettingsScreen extends StatelessWidget {
 
               SizedBox(height: 24),
 
+              //'Delete Account' button
               _buildSettingScreenButton(
                 'Delete Account',
                 'assets/Icons/account_icons/settings_icons/deleteAcc.svg',
-                () {},
+                () {
+                  _showDeleteAccountDialog(context);
+                },
                 Color.fromARGB(255, 180, 35, 24),
                 Colors.white,
                 Color.fromARGB(255, 253, 162, 155),
               ),
-
               SizedBox(height: 16),
 
+              //'Log Out' button
               _buildSettingScreenButton(
                 'Log Out',
                 'assets/Icons/account_icons/settings_icons/signOut.svg',
-                () async {
-                  final googleProvider = Provider.of<GoogleSignInProvider>(
-                    context,
-                    listen: false,
-                  );
-                  final prefs = await SharedPreferences.getInstance();
-
-                  if (googleProvider.isUserLoggedIn) {
-                    // Google logout
-                    await googleProvider.logout();
-
-                    // Backend logout API call (same as OTP)
-                    final token = prefs.getString('authToken') ?? '';
-                    var headers = {'Authorization': 'Bearer $token'};
-                    var dio = Dio();
-                    /*var response =*/
-                    await dio.request(
-                      'https://staging.asfur.mvp-apps.ae/api/consumer/auth/log-out',
-                      options: Options(method: 'POST', headers: headers),
-                    );
-
-                    // if (response.statusCode == 200) {
-                    //   print(
-                    //     'This is the sucessful logout output${json.encode(response.data)}',
-                    //   );
-                    // } else {
-                    //   print('Error: ${response.statusMessage}');
-                    // }
-
-                    await prefs.remove('isLoggedIn');
-                    await prefs.remove('userData');
-                    await prefs.remove('authToken');
-                  } else if (prefs.getBool('isLoggedIn') ?? false) {
-                    // OTP logout
-                    final token = prefs.getString('authToken') ?? '';
-                    var headers = {'Authorization': 'Bearer $token'};
-                    var dio = Dio();
-                    /*var response =*/
-                    await dio.request(
-                      'https://staging.asfur.mvp-apps.ae/api/consumer/auth/log-out',
-                      options: Options(method: 'POST', headers: headers),
-                    );
-
-                    // if (response.statusCode == 200) {
-                    //   print(json.encode(response.data));
-                    // } else {
-                    //   print(response.statusMessage);
-                    // }
-
-                    await prefs.remove('isLoggedIn');
-                    await prefs.remove('userData');
-                    await prefs.remove('authToken');
-                  }
-
-                  if (!context.mounted) return;
-
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                    (route) => false,
-                  );
+                () {
+                  _showLogoutDialog(context);
                 },
                 Colors.white,
                 Color.fromARGB(255, 217, 45, 32),
@@ -330,3 +272,332 @@ Widget _buildSettingScreenButton(
     ),
   );
 }
+
+//logout dialog and logic handler
+void _showLogoutDialog(BuildContext context) {
+  // Grab the provider before the async gap
+  final googleProvider = Provider.of<GoogleSignInProvider>(
+    context,
+    listen: false,
+  );
+
+  showDialog(
+    context: context,
+    barrierDismissible: false, // User must tap a button to close
+    builder: (BuildContext dialogContext) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        titlePadding: EdgeInsets.only(top: 19),
+
+        title: Center(
+          child: Text(
+            'Logout',
+            style: TextStyle(
+              fontFamily: 'Ping',
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: Color.fromARGB(255, 52, 64, 84),
+            ),
+          ),
+        ),
+        content: SizedBox(
+          height: 150,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            // Use minimum space
+            children: [
+              SvgPicture.asset(
+                'assets/Icons/account_icons/settings_icons/signOut.svg',
+                colorFilter: ColorFilter.mode(
+                  Color.fromARGB(255, 179, 38, 30),
+                  BlendMode.srcIn,
+                ),
+                width: 40,
+                height: 40,
+              ),
+              SizedBox(height: 27),
+              Text(
+                'Are You Sure you want to Logout?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Ping',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        buttonPadding: EdgeInsetsGeometry.zero,
+        actionsPadding: EdgeInsets.only(bottom: 24, left: 24, right: 24),
+        actions: <Widget>[
+          // 'Yes' Button
+          SizedBox(
+            width: 120,
+            height: 44,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(
+                  0xFF00A99D,
+                ), // A teal color like in the image
+                foregroundColor: Colors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: Text(
+                'Yes',
+                style: TextStyle(
+                  fontFamily: 'Ping',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+
+                if (googleProvider.isUserLoggedIn) {
+                  await googleProvider.logout();
+                }
+
+                // This part runs for both Google and OTP users
+                final token = prefs.getString('authToken') ?? '';
+                if (token.isNotEmpty) {
+                  var headers = {'Authorization': 'Bearer $token'};
+                  var dio = Dio();
+                  await dio.request(
+                    'https://staging.asfur.mvp-apps.ae/api/consumer/auth/log-out',
+                    options: Options(method: 'POST', headers: headers),
+                  );
+                }
+
+                // Clear all user data
+                await prefs.remove('isLoggedIn');
+                await prefs.remove('userData');
+                await prefs.remove('authToken');
+
+                if (!context.mounted) return;
+
+                // Navigate to Login Screen
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (route) => false,
+                );
+              },
+            ),
+          ),
+          SizedBox(width: 16),
+          // 'No' Button
+          SizedBox(
+            width: 120,
+            height: 44,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 242, 244, 247),
+                foregroundColor: Colors.black87,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(color: Color.fromARGB(255, 234, 236, 240)),
+                ),
+              ),
+              child: Text(
+                'No',
+                style: TextStyle(
+                  fontFamily: 'Ping',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 213, 214, 217),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+//delete account dialog and logic handler
+void _showDeleteAccountDialog(BuildContext context) {
+  // Grab the provider before the async gap
+  final googleProvider = Provider.of<GoogleSignInProvider>(
+    context,
+    listen: false,
+  );
+
+  showDialog(
+    context: context,
+    barrierDismissible: false, // User must tap a button to close
+    builder: (BuildContext dialogContext) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        titlePadding: EdgeInsets.only(top: 19),
+
+        title: Center(
+          child: Text(
+            'Delete Account',
+            style: TextStyle(
+              fontFamily: 'Ping',
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: Color.fromARGB(255, 52, 64, 84),
+            ),
+          ),
+        ),
+        content: SizedBox(
+          height: 150,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            // Use minimum space
+            children: [
+              SvgPicture.asset(
+                'assets/Icons/account_icons/settings_icons/deleteAcc.svg',
+                colorFilter: ColorFilter.mode(
+                  Color.fromARGB(255, 179, 38, 30),
+                  BlendMode.srcIn,
+                ),
+                width: 40,
+                height: 40,
+              ),
+              SizedBox(height: 27),
+              Text(
+                'Are You Sure you want to remove your account?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Ping',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        buttonPadding: EdgeInsetsGeometry.zero,
+        actionsPadding: EdgeInsets.only(bottom: 24, left: 24, right: 24),
+        actions: <Widget>[
+          // 'Yes' Button
+          SizedBox(
+            width: 120,
+            height: 44,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(
+                  0xFF00A99D,
+                ), // A teal color like in the image
+                foregroundColor: Colors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: Text(
+                'Yes',
+                style: TextStyle(
+                  fontFamily: 'Ping',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+
+                if (googleProvider.isUserLoggedIn) {
+                  await googleProvider.logout();
+                }
+
+                final token = prefs.getString('authToken') ?? '';
+                if (token.isNotEmpty) {
+                  var headers = {'Authorization': 'Bearer $token'};
+                  var dio = Dio();
+                  await dio.request(
+                    'https://staging.asfur.mvp-apps.ae/api/consumer/auth/delete-profile',
+                    options: Options(method: 'DELETE', headers: headers),
+                  );
+                }
+
+                // Clear all user data
+                await prefs.remove('isLoggedIn');
+                await prefs.remove('userData');
+                await prefs.remove('authToken');
+
+                if (!context.mounted) return;
+
+                // Navigate to Login Screen
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (route) => false,
+                );
+              },
+            ),
+          ),
+          SizedBox(width: 16),
+          // 'No' Button
+          SizedBox(
+            width: 120,
+            height: 44,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 242, 244, 247),
+                foregroundColor: Colors.black87,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(color: Color.fromARGB(255, 234, 236, 240)),
+                ),
+              ),
+              child: Text(
+                'No',
+                style: TextStyle(
+                  fontFamily: 'Ping',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Color.fromARGB(255, 213, 214, 217),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
+/*var headers = {
+  'Authorization': 'Bearer 9128|KCX02zGnz35lbKVZsN7EtpZzFYGMIeGMgqq7ibVg6235a95e'
+};
+var dio = Dio();
+var response = await dio.request(
+  'https://staging.asfur.mvp-apps.ae/api/consumer/auth/delete-profile',
+  options: Options(
+    method: 'DELETE',
+    headers: headers,
+  ),
+);
+
+if (response.statusCode == 200) {
+  print(json.encode(response.data));
+}
+else {
+  print(response.statusMessage);
+}*/

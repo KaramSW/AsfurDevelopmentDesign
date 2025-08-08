@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/screens/account_subscreens/edit_profile_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'account_subscreens/settings.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -12,198 +13,273 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  String? _userName;
+  String? _photoUrl;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    if (mounted) {
+      setState(() {
+        _isLoading = true;
+      });
+    }
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      // Retrieve saved auth token
+      final token = prefs.getString('authToken');
+
+      if (token == null) {
+        // Handle case where user is not logged in
+        if (mounted) setState(() => _isLoading = false);
+        return;
+      }
+
+      var headers = {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+
+      var dio = Dio();
+      var response = await dio.request(
+        'https://staging.asfur.mvp-apps.ae/api/consumer/auth/who-am-i',
+        options: Options(method: 'GET', headers: headers),
+      );
+
+      if (response.statusCode == 200 && mounted) {
+        final userData = response.data['data'];
+        // Update state with fetched data
+        setState(() {
+          _userName = userData['name'];
+          _photoUrl = userData['photo_url'];
+        });
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print('An error occurred: $e');
+    } finally {
+      // Hide the spinner once done
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 56, 24, 187),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Account',
-                style: TextStyle(
-                  fontFamily: 'Ping',
-                  fontSize: 30,
-                  fontWeight: FontWeight.w900,
-                  color: Color.fromARGB(255, 24, 34, 48),
-                ),
-              ),
-              SizedBox(height: 64),
-              SizedBox(
-                width: 344,
-                height: 74,
-                child: Row(
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 56, 24, 187),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 74,
+                    const Text(
+                      'Account',
+                      style: TextStyle(
+                        fontFamily: 'Ping',
+                        fontSize: 30,
+                        fontWeight: FontWeight.w900,
+                        color: Color.fromARGB(255, 24, 34, 48),
+                      ),
+                    ),
+                    SizedBox(height: 64),
+                    SizedBox(
+                      width: 344,
                       height: 74,
-                      padding: EdgeInsets.all(0),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color.fromARGB(255, 234, 235, 236),
-                            spreadRadius: 0,
-                            blurRadius: 50,
-                            offset: Offset(0, 13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 74,
+                            height: 74,
+                            padding: EdgeInsets.all(0),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color.fromARGB(
+                                    255,
+                                    234,
+                                    235,
+                                    236,
+                                  ),
+                                  spreadRadius: 0,
+                                  blurRadius: 50,
+                                  offset: Offset(0, 13),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                width: 2,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(40),
+                              ),
+                              child: _photoUrl != null && _photoUrl!.isNotEmpty
+                                  ? Image.network(
+                                      _photoUrl!,
+                                      fit: BoxFit.cover,
+                                      width: 74,
+                                      height: 74,
+                                    )
+                                  : SvgPicture.asset(
+                                      'assets/Icons/account_icons/defaultAvatar.svg',
+                                      fit: BoxFit.cover,
+                                      width: 74,
+                                      height: 74,
+                                    ),
+                            ),
+                          ),
+
+                          SizedBox(width: 16),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _userName ?? 'New User',
+                                style: const TextStyle(
+                                  fontFamily: 'Ping',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color.fromARGB(255, 24, 34, 48),
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              SizedBox(
+                                width: 213,
+                                height: 20,
+                                child: ElevatedButton(
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditProfileScreen(),
+                                    ),
+                                  ),
+
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 0,
+                                      vertical: 0,
+                                    ),
+                                    backgroundColor: Colors.white,
+                                    elevation: 0,
+                                    overlayColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadiusGeometry.all(
+                                        Radius.circular(8),
+                                      ),
+                                    ),
+                                  ),
+
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Edit Profile',
+                                        style: TextStyle(
+                                          color: Color.fromARGB(
+                                            255,
+                                            18,
+                                            109,
+                                            113,
+                                          ),
+                                          fontFamily: 'Ping',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      SvgPicture.asset(
+                                        'assets/Icons/account_icons/editProfileArrow.svg',
+                                        width: 15,
+                                        height: 15,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                        borderRadius: BorderRadius.circular(40),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                          width: 2,
-                        ),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(40)),
-                        child: user?.photoURL != null
-                            ? Image.network(
-                                user!.photoURL!,
-                                fit: BoxFit.cover,
-                                width: 74,
-                                height: 74,
-                              )
-                            : SvgPicture.asset(
-                                'assets/Icons/account_icons/defaultAvatar.svg',
-                                fit: BoxFit.cover,
-                                width: 74,
-                                height: 74,
-                              ),
+                    ),
+                    SizedBox(height: 48),
+                    _buildAccountScreenListItem(
+                      'assets/Icons/account_icons/requestsRocket.svg',
+                      'My Requests',
+                      null,
+                    ),
+                    _buildAccountScreenListItem(
+                      'assets/Icons/account_icons/myDocuments.svg',
+                      'My Documents',
+                      null,
+                    ),
+                    _buildAccountScreenListItem(
+                      'assets/Icons/account_icons/wallet.svg',
+                      'Wallet',
+                      null,
+                    ),
+                    _buildAccountScreenListItem(
+                      'assets/Icons/account_icons/favorites.svg',
+                      'Favorites',
+                      null,
+                    ),
+                    _buildAccountScreenListItem(
+                      'assets/Icons/account_icons/savedCards.svg',
+                      'Saved Cards',
+                      null,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 242, 244, 247),
                       ),
                     ),
 
-                    SizedBox(width: 16),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          user?.displayName ?? 'Guest User',
-                          style: const TextStyle(
-                            fontFamily: 'Ping',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromARGB(255, 24, 34, 48),
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        SizedBox(
-                          width: 213,
-                          height: 20,
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditProfileScreen(),
-                              ),
-                            ),
+                    SizedBox(height: 24),
 
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 0,
-                                vertical: 0,
-                              ),
-                              backgroundColor: Colors.white,
-                              elevation: 0,
-                              overlayColor: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadiusGeometry.all(
-                                  Radius.circular(8),
-                                ),
-                              ),
-                            ),
-
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Edit Profile',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 18, 109, 113),
-                                    fontFamily: 'Ping',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                SvgPicture.asset(
-                                  'assets/Icons/account_icons/editProfileArrow.svg',
-                                  width: 15,
-                                  height: 15,
-                                ),
-                              ],
-                            ),
-                          ),
+                    _buildAccountScreenListItem(
+                      'assets/Icons/account_icons/settings.svg',
+                      'Settings',
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SettingsScreen(),
                         ),
-                      ],
+                      ),
+                    ),
+                    _buildAccountScreenListItem(
+                      'assets/Icons/account_icons/customerSupport.svg',
+                      'Customer Support',
+                      null,
+                    ),
+                    _buildAccountScreenListItem(
+                      'assets/Icons/account_icons/aboutAsfur.svg',
+                      'About Asfur',
+                      null,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 48),
-              _buildAccountScreenListItem(
-                'assets/Icons/account_icons/requestsRocket.svg',
-                'My Requests',
-                null,
-              ),
-              _buildAccountScreenListItem(
-                'assets/Icons/account_icons/myDocuments.svg',
-                'My Documents',
-                null,
-              ),
-              _buildAccountScreenListItem(
-                'assets/Icons/account_icons/wallet.svg',
-                'Wallet',
-                null,
-              ),
-              _buildAccountScreenListItem(
-                'assets/Icons/account_icons/favorites.svg',
-                'Favorites',
-                null,
-              ),
-              _buildAccountScreenListItem(
-                'assets/Icons/account_icons/savedCards.svg',
-                'Saved Cards',
-                null,
-              ),
-              Container(
-                width: double.infinity,
-                height: 8,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 242, 244, 247),
-                ),
-              ),
-
-              SizedBox(height: 24),
-
-              _buildAccountScreenListItem(
-                'assets/Icons/account_icons/settings.svg',
-                'Settings',
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SettingsScreen()),
-                ),
-              ),
-              _buildAccountScreenListItem(
-                'assets/Icons/account_icons/customerSupport.svg',
-                'Customer Support',
-                null,
-              ),
-              _buildAccountScreenListItem(
-                'assets/Icons/account_icons/aboutAsfur.svg',
-                'About Asfur',
-                null,
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
