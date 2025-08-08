@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/screens/account_subscreens/edit_profile_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'account_subscreens/settings.dart';
+import 'account_subscreens/favorites_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -239,7 +240,12 @@ class _AccountScreenState extends State<AccountScreen> {
                     _buildAccountScreenListItem(
                       'assets/Icons/account_icons/favorites.svg',
                       'Favorites',
-                      null,
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FavoritesScreen(),
+                        ),
+                      ),
                     ),
                     _buildAccountScreenListItem(
                       'assets/Icons/account_icons/savedCards.svg',
