@@ -64,6 +64,7 @@ flutter:
     # the material Icons class.
     - assets/Icons/
     - assets/Icons/navBar/
+    - assets/Icons/bookings_icons/
     - assets/Icons/hp_icons/
     - assets/Icons/hp_icons/category_icons/
     - assets/Icons/hp_icons/currency_icons/

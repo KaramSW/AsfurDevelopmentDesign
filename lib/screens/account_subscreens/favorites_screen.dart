@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/favorites_package_item_widget.dart';
 import 'package:flutter_projects/widgets/back_button.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
+import '../../widgets/favorites_loading_pakcage.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -104,7 +106,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 future: _packageItemsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return Container(
+                      alignment: Alignment.topCenter,
+                      child: Shimmer(child: FavoritesLoadingPakcage()),
+                    );
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(

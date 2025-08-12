@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/package_item_widget.dart';
 import '../widgets/panorama_item_widget.dart';
+import 'package:dio/dio.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -80,18 +82,45 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
+
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: const Text(
-                          'Your Compass to \nPossibilities! 🌏✈️',
-                          style: TextStyle(
-                            fontFamily: 'Ping',
-                            fontSize: 30,
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromARGB(255, 24, 34, 48),
-                          ),
+                        child: FutureBuilder<Widget>(
+                          // Use FutureBuilder here
+                          future:
+                              _getHomePageTitle(), // The async function is the future
+                          builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              // Show a loading indicator while fetching the title
+                              return Shimmer(
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: 86,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                        36,
+                                        181,
+                                        181,
+                                        181,
+                                      ),
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            } else if (snapshot.hasError) {
+                              // Display an error message if the API call fails
+                              return const Text('Error loading title');
+                            } else {
+                              // If data is ready, use the returned widget from your function
+                              return snapshot.data ??
+                                  const Text('Default Title');
+                            }
+                          },
                         ),
                       ),
                     ),
@@ -672,7 +701,31 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  ////////
+  Future<Widget> _getHomePageTitle() async {
+    var title = 'Your Compass to \nPossibilities! 🌏✈️';
+    var headers = {'Accept': 'application/json'};
+    var dio = Dio();
+
+    var response = await dio.request(
+      'https://staging.asfur.mvp-apps.ae/api/public/appSetting/get-value-by-key?key=HOMEPAGE_TITLE',
+      options: Options(method: 'GET', headers: headers),
+    );
+
+    if (response.statusCode == 200) {
+      title = response.data['data']['value'];
+      title = title.replaceAll(RegExp(r'<[^>]*>'), '');
+    }
+
+    return Text(
+      title,
+      style: const TextStyle(
+        fontFamily: 'Ping',
+        fontSize: 30,
+        fontWeight: FontWeight.w900,
+        color: Color.fromARGB(255, 24, 34, 48),
+      ),
+    );
+  }
 
   List<Map<String, dynamic>> _getPackageItems() {
     return [

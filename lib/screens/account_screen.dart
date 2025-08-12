@@ -88,14 +88,18 @@ class _AccountScreenState extends State<AccountScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Account',
-                      style: TextStyle(
-                        fontFamily: 'Ping',
-                        fontSize: 30,
-                        fontWeight: FontWeight.w900,
-                        color: Color.fromARGB(255, 24, 34, 48),
-                      ),
+                    Row(
+                      children: [
+                        const Text(
+                          'Account',
+                          style: TextStyle(
+                            fontFamily: 'Ping',
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                            color: Color.fromARGB(255, 24, 34, 48),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 64),
                     SizedBox(
