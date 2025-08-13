@@ -114,7 +114,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             } else if (snapshot.hasError) {
                               // Display an error message if the API call fails
-                              return const Text('Error loading title');
+                              return Text(
+                                "Your Compass to \nPossibilities! 🌏✈️",
+                                style: TextStyle(
+                                  fontFamily: 'Ping',
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color.fromARGB(255, 24, 34, 48),
+                                ),
+                              );
                             } else {
                               // If data is ready, use the returned widget from your function
                               return snapshot.data ??

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomBackButtonIcon extends StatelessWidget {
+class ShareButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
-  const CustomBackButtonIcon({super.key, this.onPressed});
+  const ShareButton({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class CustomBackButtonIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       child: IconButton(
-        icon: SvgPicture.asset('assets/Icons/backIcon.svg'),
-        onPressed: onPressed ?? () => Navigator.pop(context),
+        icon: SvgPicture.asset('assets/Icons/shareIcon.svg'),
+        onPressed: () {},
         style: const ButtonStyle(),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../screens/view_package_details_screen.dart';
 
 class FavPackWidget extends StatelessWidget {
   final String iconPath;
@@ -12,6 +13,7 @@ class FavPackWidget extends StatelessWidget {
   final String avatarPath;
   final String providerName;
   final String providerRating;
+  final int packageID;
   final VoidCallback onPressed;
 
   const FavPackWidget({
@@ -26,6 +28,7 @@ class FavPackWidget extends StatelessWidget {
     required this.avatarPath,
     required this.providerName,
     required this.providerRating,
+    required this.packageID,
     required this.onPressed,
   });
 
@@ -56,7 +59,13 @@ class FavPackWidget extends StatelessWidget {
             ],
           ),
           child: ElevatedButton(
-            onPressed: onPressed,
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ViewPackageDetailsScreen(),
+              ),
+            ),
+            //print(packageID);
             style:
                 ElevatedButton.styleFrom(
                   elevation: 0,
@@ -97,6 +106,8 @@ class FavPackWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 9, left: 16),
                   child: Text(
                     packageName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontFamily: 'Ping',
                       fontSize: 20,

@@ -4,6 +4,7 @@ import '../../widgets/favorites_package_item_widget.dart';
 import 'package:flutter_projects/widgets/back_button.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import '../../widgets/favorites_loading_pakcage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -22,9 +23,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   }
 
   Future<List<Map<String, dynamic>>> _getPackageItems() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final token = prefs.getString('authToken');
+
     var headers = {
-      'Authorization':
-          'Bearer 9389|5ttedFaxkfoXue6wPdVhYWnWwH2gCqCWdXewPo0t3e9de3a0',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
     };
     var dio = Dio();
     var response = await dio.request(
@@ -60,7 +65,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           'iconPath': coverImage,
           'packageName': englishPackageTranslation?['title'] ?? 'N/A',
           'countryFlagPath':
-              'https://flagcdn.com/144x108/ae.png', // Default flag as the API doesn't provide a flag URL for countries (only cities) and the example response had 'country' as null.
+              item['city']['flag'] ?? 'https://flagcdn.com/144x108/ae.png',
           'countryCityName': item['city']['name'] ?? 'N/A',
           'dateOrDuration': dateOrDuration,
           'price': item['selling_price']?.toString() ?? '0',
@@ -70,6 +75,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               'assets/pictures/hp_pictures/travelOnlineAgencyAvatar.png', // Assuming a default avatar path
           'providerName': englishAgencyTranslation?['name'] ?? 'N/A',
           'providerRating': '5', // Defaulting to 5
+          'packageID': item['id'] as int,
         };
       }).toList();
     } else {
@@ -137,6 +143,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           avatarPath: packageData['avatarPath']!,
                           providerName: packageData['providerName']!,
                           providerRating: packageData['providerRating']!,
+                          packageID: packageData['packageID'] as int,
                           onPressed: () {},
                         );
                       },
