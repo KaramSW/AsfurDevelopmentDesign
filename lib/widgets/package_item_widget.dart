@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../screens/view_package_details_screen.dart';
 
 class PackageItemWidget extends StatelessWidget {
   final String iconPath;
@@ -56,7 +57,12 @@ class PackageItemWidget extends StatelessWidget {
             ],
           ),
           child: ElevatedButton(
-            onPressed: onPressed,
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ViewPackageDetailsScreen(),
+              ),
+            ),
             style:
                 ElevatedButton.styleFrom(
                   elevation: 0,

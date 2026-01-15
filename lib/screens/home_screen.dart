@@ -134,52 +134,50 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Enter Destination',
-                            contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            prefixIconConstraints: const BoxConstraints(
-                              minWidth: 10,
-                              minHeight: 10,
-                            ),
-                            hintStyle: const TextStyle(
-                              fontFamily: 'Ping',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color.fromARGB(255, 24, 34, 48),
-                            ),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                16.5,
-                                0,
-                                10.5,
-                                0,
-                              ),
-                              child: SvgPicture.asset(
-                                'assets/Icons/hp_icons/searchIcon.svg',
-                                width: 20,
-                                height: 20,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(8),
+                          ),
+                          elevation: 0,
+                          padding: const EdgeInsetsGeometry.all(0),
+                          backgroundColor: Colors.white,
+                          overlayColor: Colors.transparent,
+                        ),
+                        child: SizedBox(
+                          height: 50,
+                          width: double.infinity,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 208, 213, 221),
+                              border: Border.all(
                                 width: 1,
+                                color: Color.fromARGB(255, 208, 213, 221),
                               ),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 208, 213, 221),
-                                width: 1,
-                              ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(width: 14),
+                                SvgPicture.asset(
+                                  'assets/Icons/hp_icons/searchIcon.svg',
+                                  width: 20,
+                                  height: 20,
+                                ),
+                                SizedBox(width: 8),
+
+                                Text(
+                                  'Enter Destination',
+                                  style: TextStyle(
+                                    fontFamily: 'Ping',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromARGB(255, 52, 64, 84),
+                                  ),
+                                ),
+                              ],
                             ),
-                            filled: true,
-                            fillColor: Colors.white,
                           ),
                         ),
                       ),
